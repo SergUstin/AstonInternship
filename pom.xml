@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>MyCollection</module>
+        <module>RestCrudOnServlet</module>
     </modules>
 
     <properties>
