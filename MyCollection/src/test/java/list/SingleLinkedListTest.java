@@ -10,7 +10,7 @@ class SingleLinkedListTest {
 
     @Test
     void testAdd_ShouldAddElements_WhenSingleLinkedListIsEmpty() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+        SingleLinkedList<String> list = new SingleLinkedList<>(); // тут то же самое
 
         list.add("Я");
         list.add("супер");

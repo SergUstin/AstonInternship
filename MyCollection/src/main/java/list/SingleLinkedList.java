@@ -47,7 +47,7 @@ public class SingleLinkedList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         Node<T> node = new Node<>();
         node.element = element;
@@ -89,7 +89,7 @@ public class SingleLinkedList<T> implements List<T> {
     @Override
     public void remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
 
         if (size == 1) {
@@ -209,7 +209,7 @@ public class SingleLinkedList<T> implements List<T> {
     @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         Node<T> node = first;
         for (int i = 0; i < index; i++) {
@@ -228,7 +228,7 @@ public class SingleLinkedList<T> implements List<T> {
     @Override
     public void set(int index, T element) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         Node<T> firstNode = first;
         for (int i = 0; i < index; i++) {

@@ -52,7 +52,7 @@ public class DoubleLinkedList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
 
         Node<T> node = new Node<>();
@@ -89,7 +89,7 @@ public class DoubleLinkedList<T> implements List<T> {
     public void remove(int index) {
         // Обрабатываем случай, когда индекс находится вне допустимого диапазона
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
 
         // Обрабатываем случай, когда в списке есть только один элемент
@@ -251,7 +251,7 @@ public class DoubleLinkedList<T> implements List<T> {
 
     private Node<T> getNode(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
 
         Node<T> node;

@@ -7,7 +7,11 @@ import java.util.Objects;
  * Класс ArrayList предоставляет динамический массив и реализует интерфейс List.
  * <T> - тип элементов, которые будут храниться в списке.
  */
+// Ничего себе сколько ты всего реализовал) Молодец!
 public class ArrayList<T> implements List<T> {
+
+    public static final Integer DEFAULT_SIZE = 10;
+    public static final String INCORRECT_CAPACITY_ERR_MSG = "вместимость должна быть больше ноля";
 
     // Содержит элементы ArrayList
     private Object[] items;
@@ -22,7 +26,7 @@ public class ArrayList<T> implements List<T> {
      * Конструктор по умолчанию создает ArrayList с начальной вместимостью 10.
      */
     public ArrayList() {
-        items = new Object[10];
+        items = new Object[DEFAULT_SIZE];
     }
 
     /**
@@ -32,7 +36,7 @@ public class ArrayList<T> implements List<T> {
      */
     public ArrayList(int capacity) {
         if (capacity < 1) {
-            throw new IllegalArgumentException("вместимость должна быть больше ноля");
+            throw new IllegalArgumentException(INCORRECT_CAPACITY_ERR_MSG);
         }
         items = new Object[capacity];
     }
@@ -64,14 +68,14 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         if (size == 0) {
             items[start] = element;
         } else if (size < items.length) { // Есть резерв
             if (index <= size / 2) {  // Вставка в первую половину
                 if (start == 0) { // Нет резерва в начале
-                    addLeftShift(index, element);
+                    addLeftShift(index, element); // Тут сильно большая вложенность if-ов, надо разбивать на отдельные методы
                 } else { // Есть резерв в начале
                     addLeft(index, element);
                 }
@@ -164,14 +168,14 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         if (items.length > size * 4) {
             recreateItems(index);
         } else {
             if (index <= size / 2) { // Удаление из левой части
                 for (int i = index; i > 0; i--) {
-                    items[start + i] = items[start + i - 1];
+                    items[start + i] = items[start + i - 1]; // тут тоже большая вложенность, не должно быть больше 2 табов
                 }
                 items[start] = null;
                 start++;
@@ -228,7 +232,7 @@ public class ArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         return (T) items[start + index];
     }
@@ -243,7 +247,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void set(int index, T element) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("не корректный индекс");
+            throw new IllegalArgumentException(INCORRECT_INDEX_ERR_MSG);
         }
         items[start + index] = element;
     }
@@ -364,8 +368,8 @@ public class ArrayList<T> implements List<T> {
         int n1 = middle - left + 1;
         int n2 = right - middle;
 
-        ArrayList<T> leftArray = new ArrayList<T>();
-        ArrayList<T> rightArray = new ArrayList<T>();
+        ArrayList<T> leftArray = new ArrayList<>();
+        ArrayList<T> rightArray = new ArrayList<>();
 
         for (int i = 0; i < n1; i++) {
             leftArray.add(arr.get(left + i));
