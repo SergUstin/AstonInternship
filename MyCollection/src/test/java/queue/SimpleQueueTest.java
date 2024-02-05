@@ -10,7 +10,7 @@ class SimpleQueueTest {
     // Найминг!!!!
     private SimpleQueue<String> queue;
 
-    @BeforeEach
+    @BeforeEach // Да, или можно через BeforeEach
     void setQueue() {
         queue = new SimpleQueue<>();
     }

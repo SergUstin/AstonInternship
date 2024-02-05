@@ -9,6 +9,7 @@ import static list.ArrayList.mergeSort;
 import static list.ArrayList.quickSort;
 import static org.junit.jupiter.api.Assertions.*;
 
+// тесты очень хорошие, молодец!
 class ArrayListTest {
 
     // Найминг!!!!
