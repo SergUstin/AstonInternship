@@ -19,4 +19,11 @@ public class Employee {
         this.fullName = fullName;
         this.salary = salary;
     }
+
+    public Employee(Integer id, String fullName, BigDecimal salary, Manager manager) {
+        this.id = id;
+        this.fullName = fullName;
+        this.salary = salary;
+        this.manager = manager;
+    }
 }
