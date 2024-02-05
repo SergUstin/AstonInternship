@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleQueueTest {
 
-    // Найминг!!!!
     private SimpleQueue<String> queue;
 
     @BeforeEach // Да, или можно через BeforeEach

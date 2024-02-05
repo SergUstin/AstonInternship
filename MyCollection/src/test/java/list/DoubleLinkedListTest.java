@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleLinkedListTest {
 
-    // Найминг!!!!
-
     @Test
     void testAdd_ShouldAddedElement_WhenEmptyList() {
         DoubleLinkedList<String> list = new DoubleLinkedList<>();

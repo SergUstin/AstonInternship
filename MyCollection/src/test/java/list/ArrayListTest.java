@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 // тесты очень хорошие, молодец!
 class ArrayListTest {
 
-    // Найминг!!!!
-
     private ArrayList<String> list;
 
     private void testStandardPhraseFourElement_ShouldAddedElement_WhenEmptyList() {

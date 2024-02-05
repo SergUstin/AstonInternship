@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StackTest {
 
-    // Найминг!!!!
-
     private Stack<String> stack;
 
     @BeforeEach

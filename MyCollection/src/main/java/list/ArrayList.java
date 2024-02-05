@@ -288,7 +288,6 @@ public class ArrayList<T> implements List<T> {
         return indexOf(element) >= 0;
     }
 
-    // Покрыть тестами все методы ниже!!!
     /**
      * Метод для сортировки части списка методом быстрой сортировки.
      *

@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SingleLinkedListTest {
 
-    // Найминг!!!!
-
     @Test
     void testAdd_ShouldAddElements_WhenSingleLinkedListIsEmpty() {
         SingleLinkedList<String> list = new SingleLinkedList<>(); // тут то же самое
