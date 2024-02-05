@@ -75,9 +75,9 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
         try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "UPDATE managers SET full_name = ?, salary = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, item.getId());
                 statement.setString(2, item.getFullName());
                 statement.setBigDecimal(3, item.getSalary());
+                statement.setInt(1, item.getId());
                 statement.executeUpdate();
             }
         }catch (SQLException e) {
