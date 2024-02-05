@@ -14,6 +14,9 @@ public class Employee {
     BigDecimal salary;
     Manager manager;
 
+    public Employee() {
+    }
+
     public Employee(Integer id, String fullName, BigDecimal salary) {
         this.id = id;
         this.fullName = fullName;
