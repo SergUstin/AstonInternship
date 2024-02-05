@@ -58,11 +58,12 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
     @Override
     public void create(Employee item) {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
-            String sql = "INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO managers (id, full_name, salary, manager_id) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, item.getId());
                 statement.setString(2, item.getFullName());
                 statement.setBigDecimal(3, item.getSalary());
+                statement.setInt(4, item.getManager().getId());
                 statement.executeUpdate();
             }
         }catch (SQLException e) {
@@ -101,8 +102,9 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
     private Manager getManagersByEmployeesId(Integer employeeId) {
         Manager manager = null;
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
-            String sql = "SELECT * FROM managers WHERE manager_id = ?";
+            String sql = "SELECT * FROM managers WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, employeeId);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         manager = new Manager(resultSet.getInt("id"),
