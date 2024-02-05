@@ -21,7 +21,7 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        manager = new Manager(resultSet.getInt("id"), resultSet.getString("fullName"),
+                        manager = new Manager(resultSet.getInt("id"), resultSet.getString("full_name"),
                                 resultSet.getBigDecimal("salary"),
                                 getEmployeesByManagerId(resultSet.getInt("id")));
                     }
@@ -59,7 +59,7 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setLong(1, item.getId());
+                preparedStatement.setInt(1, item.getId());
                 preparedStatement.setString(2, item.getFullName());
                 preparedStatement.setBigDecimal(3, item.getSalary());
                 preparedStatement.executeUpdate();
@@ -67,7 +67,6 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -75,9 +74,9 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "UPDATE managers SET full_name = ?, salary = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(3, item.getId());
                 statement.setString(1, item.getFullName());
                 statement.setBigDecimal(2, item.getSalary());
-                statement.setLong(3, item.getId());
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
