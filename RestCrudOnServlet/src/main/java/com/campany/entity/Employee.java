@@ -17,6 +17,12 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(String fullName, BigDecimal salary, Manager manager) {
+        this.fullName = fullName;
+        this.salary = salary;
+        this.manager = manager;
+    }
+
     public Employee(Integer id, String fullName, BigDecimal salary) {
         this.id = id;
         this.fullName = fullName;
