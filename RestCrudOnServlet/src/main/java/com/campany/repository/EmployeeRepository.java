@@ -1,19 +1,19 @@
 package com.campany.repository;
 
 import com.campany.entity.Employee;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository implements RepositoryMethod<Employee> {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/aston-test";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "root";
+@Slf4j
+public class EmployeeRepository extends AbstractRepository<Employee> {
     @Override
     public Employee findById(Integer id) {
+        log.info("Поиск сотрудника по ID: {}", id);
         Employee employee = null;
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
             String sql = "SELECT * FROM employees WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
@@ -23,18 +23,22 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
                                 resultSet.getString("full_name"),
                                 resultSet.getBigDecimal("salary"),
                                 resultSet.getInt("manager_id"));
+                        log.info("Найден сотрудник с ID {}: {}", id, employee);
+                    } else {
+                        log.info("Сотрудник с ID {} не найден", id);
                     }
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            log.error("Ошибка при выполнении поиска сотрудника по ID {}", id, e);
         }
         return employee;
     }
     @Override
     public List<Employee> findAll() {
+        log.info("Получение всех сотрудников");
         List<Employee> employees = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
             String sql = "SELECT * FROM employees";
             try (PreparedStatement statement = connection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
@@ -46,15 +50,16 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
                     employees.add(employee);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Получено {} сотрудников", employees.size());
+        } catch (SQLException | ClassNotFoundException e) {
+            log.error("Ошибка при получении сотрудников", e);
         }
         return employees;
     }
     @Override
-    public void save(Employee item) throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+    public void save(Employee item) {
+        log.info("Сохранение сотрудника: {}", item.getFullName());
+        try (Connection connection = getConnection()) {
             String sql = "INSERT INTO employees (id, full_name, salary, manager_id) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, item.getId());
@@ -63,14 +68,15 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
                 statement.setInt(4, item.getManagerId());
                 statement.executeUpdate();
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Сотрудник {} успешно сохранен", item.getFullName());
+        }catch (SQLException | ClassNotFoundException e) {
+            log.error("Ошибка при сохранении сотрудника", e);
         }
     }
     @Override
-    public void update(Employee item) throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+    public void update(Employee item) {
+        log.info("Обновление сотрудника: {}", item.getFullName());
+        try(Connection connection = getConnection()) {
             String sql = "UPDATE employees SET full_name = ?, salary = ?, manager_id = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, item.getFullName());
@@ -79,21 +85,23 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
                 statement.setInt(4, item.getId());
                 statement.executeUpdate();
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Сотрудник {} успешно обновлен", item.getFullName());
+        }catch (SQLException | ClassNotFoundException e) {
+            log.error("Ошибка при обновлении сотрудника: {}", e.getMessage());
         }
     }
     @Override
-    public void deleteById(Integer id) throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+    public void deleteById(Integer id) {
+        log.info("Удаление сотрудника с id: {}", id);
+        try (Connection connection = getConnection()) {
             String sql = "DELETE FROM employees WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
                 statement.executeUpdate();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Сотрудник с ID {} успешно удален", id);
+        } catch (SQLException | ClassNotFoundException e) {
+            log.error("Ошибка при удалении сотрудника: {}", e.getMessage());
         }
     }
 }

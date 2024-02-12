@@ -62,22 +62,18 @@ public class EmployeeController extends HttpServlet {
             BigDecimal salary = new BigDecimal(request.getParameter("salary"));
             Integer managerId = Integer.parseInt(request.getParameter("managerId"));
 
-            try {
-                EmployeeDTO employeeDTO = employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerId));
+            EmployeeDTO employeeDTO = employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerId));
 
-                // Преобразование списка employeeDTOs в JSON строку
-                String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
+            // Преобразование списка employeeDTOs в JSON строку
+            String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
 
-                // Установка типа содержимого и кодировки для ответа
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
+            // Установка типа содержимого и кодировки для ответа
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-                // Отправка JSON строки в ответе
-                response.getWriter().write(employeeJson);
+            // Отправка JSON строки в ответе
+            response.getWriter().write(employeeJson);
 
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -92,22 +88,18 @@ public class EmployeeController extends HttpServlet {
 
             // Обновление информации о существующем сотруднике
             EmployeeDTO employeeDTO = new EmployeeDTO(newFullName, newSalary, newManagerId);
-            try {
-                EmployeeDTO employee = employeeService.update(employeeId, employeeDTO);
+            EmployeeDTO employee = employeeService.update(employeeId, employeeDTO);
 
-                // Преобразование списка employeeDTOs в JSON строку
-                String employeeJson = new ObjectMapper().writeValueAsString(employee);
+            // Преобразование списка employeeDTOs в JSON строку
+            String employeeJson = new ObjectMapper().writeValueAsString(employee);
 
-                // Установка типа содержимого и кодировки для ответа
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
+            // Установка типа содержимого и кодировки для ответа
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-                // Отправка JSON строки в ответе
-                response.getWriter().write(employeeJson);
+            // Отправка JSON строки в ответе
+            response.getWriter().write(employeeJson);
 
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -116,11 +108,7 @@ public class EmployeeController extends HttpServlet {
         if ("delete".equals(action)) {
             // Логика удаления сотрудника
             int employeeId = Integer.parseInt(request.getParameter("id"));
-            try {
-                employeeService.deleteById(employeeId);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            employeeService.deleteById(employeeId);
         }
     }
 

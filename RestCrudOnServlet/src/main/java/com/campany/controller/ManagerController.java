@@ -47,18 +47,14 @@ public class ManagerController extends HttpServlet {
             Integer managerId = Integer.parseInt(request.getParameter("id"));
             String fullName = request.getParameter("fullName");
             BigDecimal salary = new BigDecimal(request.getParameter("salary"));
-            try {
-                ManagerDTO managerDTO = managerService.create(new ManagerDTO(managerId, fullName, salary));
-                // Преобразование списка employeeDTOs в JSON строку
-                String employeeJson = new ObjectMapper().writeValueAsString(managerDTO);
-                // Установка типа содержимого и кодировки для ответа
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                // Отправка JSON строки в ответе
-                response.getWriter().write(employeeJson);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            ManagerDTO managerDTO = managerService.create(new ManagerDTO(managerId, fullName, salary));
+            // Преобразование списка employeeDTOs в JSON строку
+            String employeeJson = new ObjectMapper().writeValueAsString(managerDTO);
+            // Установка типа содержимого и кодировки для ответа
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            // Отправка JSON строки в ответе
+            response.getWriter().write(employeeJson);
         }
     }
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,18 +65,14 @@ public class ManagerController extends HttpServlet {
             String newFullName = request.getParameter("fullName");
             BigDecimal newSalary = new BigDecimal(request.getParameter("salary"));
             // Обновление информации о существующем сотруднике
-            try {
-                ManagerDTO managerDTO = managerService.update(managerId, new ManagerDTO(newFullName, newSalary));
-                // Преобразование списка employeeDTOs в JSON строку
-                String managerJson = new ObjectMapper().writeValueAsString(managerDTO);
-                // Установка типа содержимого и кодировки для ответа
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                // Отправка JSON строки в ответе
-                response.getWriter().write(managerJson);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            ManagerDTO managerDTO = managerService.update(managerId, new ManagerDTO(newFullName, newSalary));
+            // Преобразование списка employeeDTOs в JSON строку
+            String managerJson = new ObjectMapper().writeValueAsString(managerDTO);
+            // Установка типа содержимого и кодировки для ответа
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            // Отправка JSON строки в ответе
+            response.getWriter().write(managerJson);
 
         }
     }
@@ -89,11 +81,7 @@ public class ManagerController extends HttpServlet {
         if ("delete".equals(action)) {
             // Логика удаления сотрудника
             int managerId = Integer.parseInt(request.getParameter("id"));
-            try {
-                managerService.deleteById(managerId);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            managerService.deleteById(managerId);
         }
     }
 }
