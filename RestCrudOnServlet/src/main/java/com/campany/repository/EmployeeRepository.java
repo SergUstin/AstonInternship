@@ -99,6 +99,26 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
         }
     }
 
+    public List<Employee> findEmployeesByIds(List<String> employeeIds) {
+        List<Employee> employees = new ArrayList<>();
+        String sql = "SELECT * FROM employees WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (String id : employeeIds) {
+                statement.setString(1, id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        employees.add(new Employee(resultSet.getInt("id"), resultSet.getString("full_name"),
+                                resultSet.getBigDecimal("salary")));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
     private Manager getManagersByEmployeesId(Integer employeeId) {
         Manager manager = null;
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {

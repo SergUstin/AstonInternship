@@ -6,6 +6,7 @@ import com.campany.mapper.EmployeeMapper;
 import com.campany.repository.EmployeeRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeService implements CrudService<EmployeeDTO>{
 
@@ -40,5 +41,10 @@ public class EmployeeService implements CrudService<EmployeeDTO>{
     @Override
     public void deleteById(Integer id) {
         employeeRepository.deleteById(id);
+    }
+
+    public List<EmployeeDTO> findEmployeesByIds(List<String> employeeList) {
+        return employeeRepository.findEmployeesByIds(employeeList).stream()
+                .map(EmployeeMapper::toDTO).collect(Collectors.toList());
     }
 }

@@ -2,10 +2,12 @@ package com.campany.controller;
 
 import com.campany.dto.EmployeeDTO;
 import com.campany.dto.ManagerDTO;
+import com.campany.mapper.EmployeeMapper;
 import com.campany.mapper.ManagerMapper;
 import com.campany.repository.EmployeeRepository;
 import com.campany.repository.ManagerRepository;
 import com.campany.service.EmployeeService;
+import com.campany.service.ManagerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -15,44 +17,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
-@WebServlet("/employee/*")
-public class EmployeeController extends HttpServlet {
+@WebServlet("/RestCrudOnServlet/manager/*")
+public class ManagerController extends HttpServlet {
+    private ManagerService managerService;
     private EmployeeService employeeService;
 
     public void init() {
+        managerService = new ManagerService(new ManagerRepository());
         employeeService = new EmployeeService(new EmployeeRepository());
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if ("getById".equals(action)) {
-            Integer employeeId = Integer.parseInt(request.getParameter("id"));
-            EmployeeDTO employeeDTO = employeeService.getById(employeeId);
+            Integer managerId = Integer.parseInt(request.getParameter("id"));
+            ManagerDTO managerDTO = managerService.getById(managerId);
 
-            // Преобразование объекта employeeDTO в JSON строку
-            String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
+            String managerJson = new ObjectMapper().writeValueAsString(managerDTO);
 
-            // Установка типа содержимого и кодировки для ответа
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
-            // Отправка JSON строки в ответ
-            response.getWriter().write(employeeJson);
-
+            response.getWriter().write(managerJson);
         } else if ("getAll".equals(action)) {
-            List<EmployeeDTO> employeeDTOS = employeeService.getAll();
+            List<ManagerDTO> managerDTOList = managerService.getAll();
 
             // Преобразование списка employeeDTOs в JSON строку
-            String employeeJson = new ObjectMapper().writeValueAsString(employeeDTOS);
+            String managerJson = new ObjectMapper().writeValueAsString(managerDTOList);
 
             // Установка типа содержимого и кодировки для ответа
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
             // Отправка JSON строки в ответе
-            response.getWriter().write(employeeJson);
+            response.getWriter().write(managerJson);
         }
     }
 
@@ -60,27 +61,28 @@ public class EmployeeController extends HttpServlet {
         String action = request.getParameter("action");
         if ("create".equals(action)){
             // Логика создания нового сотрудника
-            int employeeId = Integer.parseInt(request.getParameter("id"));
+            Integer managerId = Integer.parseInt(request.getParameter("id"));
             String fullName = request.getParameter("fullName");
             BigDecimal salary = new BigDecimal(request.getParameter("salary"));
-            int managerId = Integer.parseInt(request.getParameter("managerId"));
+            String[] employeeIds = request.getParameterValues("employeeId");
 
-            ManagerRepository managerRepository = new ManagerRepository();
-            ManagerDTO managerDTO = ManagerMapper.toDTO(managerRepository.findById(managerId));
-            employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerDTO));
+            // Находим сотрудников по их id
+            List<EmployeeDTO> employees = employeeService.findEmployeesByIds(Arrays.asList(employeeIds));
+
+            managerService.create(new ManagerDTO(managerId, fullName, salary, employees));
         } else if ("update".equals(action)) {
             // Логика обновления информации о существующем сотруднике
-            int employeeId = Integer.parseInt(request.getParameter("id"));
+            int managerId = Integer.parseInt(request.getParameter("id"));
             String newFullName = request.getParameter("newFullName");
             BigDecimal newSalary = new BigDecimal(request.getParameter("newSalary"));
 
             // Обновление информации о существующем сотруднике
-            EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, newFullName, newSalary);
-            employeeService.update(employeeDTO);
+            ManagerDTO managerDTO = new ManagerDTO(managerId, newFullName, newSalary);
+            managerService.update(managerDTO);
         } else if ("delete".equals(action)) {
             // Логика удаления сотрудника
-            int employeeId = Integer.parseInt(request.getParameter("id"));
-            employeeService.deleteById(employeeId);
+            int managerId = Integer.parseInt(request.getParameter("id"));
+            managerService.deleteById(managerId);
         }
     }
 
