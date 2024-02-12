@@ -12,27 +12,13 @@ public class Employee {
     Integer id;
     String fullName;
     BigDecimal salary;
-    Manager manager;
-
+    Integer managerId;
     public Employee() {
     }
-
-    public Employee(String fullName, BigDecimal salary, Manager manager) {
-        this.fullName = fullName;
-        this.salary = salary;
-        this.manager = manager;
-    }
-
-    public Employee(Integer id, String fullName, BigDecimal salary) {
+    public Employee(Integer id, String fullName, BigDecimal salary, Integer manager) {
         this.id = id;
         this.fullName = fullName;
         this.salary = salary;
-    }
-
-    public Employee(Integer id, String fullName, BigDecimal salary, Manager manager) {
-        this.id = id;
-        this.fullName = fullName;
-        this.salary = salary;
-        this.manager = manager;
+        this.managerId = manager;
     }
 }

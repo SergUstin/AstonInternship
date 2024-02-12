@@ -5,7 +5,7 @@ import java.util.List;
 public interface CrudService<T> {
     T getById(Integer id);
     List<T> getAll();
-    void create(T item);
-    void update(T item);
-    void deleteById(Integer id);
+    T create(T item) throws ClassNotFoundException;
+    T update(Integer id, T item) throws ClassNotFoundException;
+    void deleteById(Integer id) throws ClassNotFoundException;
 }

@@ -1,7 +1,7 @@
 package com.campany.dto;
 
+import com.campany.entity.Manager;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -15,27 +15,18 @@ public class EmployeeDTO {
     Integer id;
     String fullName;
     BigDecimal salary;
-    ManagerDTO managerDTO;
-
+    Integer managerId;
     public EmployeeDTO() {
     }
-
-    public EmployeeDTO(Integer id, String fullName, BigDecimal salary) {
+    public EmployeeDTO(String fullName, BigDecimal salary, Integer manager) {
+        this.fullName = fullName;
+        this.salary = salary;
+        this.managerId = manager;
+    }
+    public EmployeeDTO(Integer id, String fullName, BigDecimal salary, Integer manager) {
         this.id = id;
         this.fullName = fullName;
         this.salary = salary;
-    }
-
-    public EmployeeDTO(String fullName, BigDecimal salary, ManagerDTO managerDTO) {
-        this.fullName = fullName;
-        this.salary = salary;
-        this.managerDTO = managerDTO;
-    }
-
-    public EmployeeDTO(Integer id, String fullName, BigDecimal salary, ManagerDTO managerDTO) {
-        this.id = id;
-        this.fullName = fullName;
-        this.salary = salary;
-        this.managerDTO = managerDTO;
+        this.managerId = manager;
     }
 }

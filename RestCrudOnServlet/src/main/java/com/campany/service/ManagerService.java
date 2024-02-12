@@ -8,37 +8,35 @@ import com.campany.repository.ManagerRepository;
 import java.util.List;
 
 public class ManagerService implements CrudService<ManagerDTO> {
-
-    private ManagerRepository managerRepository;
-
+    private final ManagerRepository managerRepository;
     public ManagerService(ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
-
     @Override
     public ManagerDTO getById(Integer id) {
         Manager manager = managerRepository.findById(id);
         return ManagerMapper.toDTO(manager);
     }
-
     @Override
     public List<ManagerDTO> getAll() {
         List<Manager> managers = managerRepository.findAll();
         return ManagerMapper.toDTOList(managers);
     }
-
     @Override
-    public void create(ManagerDTO item) {
-        managerRepository.create(ManagerMapper.toEntity(item));
+    public ManagerDTO create(ManagerDTO item) throws ClassNotFoundException {
+        Manager manager = ManagerMapper.toEntity(item);
+        managerRepository.save(manager);
+        return ManagerMapper.toDTO(manager);
     }
-
     @Override
-    public void update(ManagerDTO item) {
-        managerRepository.update(ManagerMapper.toEntity(item));
+    public ManagerDTO update(Integer id, ManagerDTO item) throws ClassNotFoundException {
+        item.setId(id);
+        Manager manager = ManagerMapper.toEntity(item);
+        managerRepository.update(manager);
+        return ManagerMapper.toDTO(manager);
     }
-
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id) throws ClassNotFoundException {
         managerRepository.deleteById(id);
     }
 }

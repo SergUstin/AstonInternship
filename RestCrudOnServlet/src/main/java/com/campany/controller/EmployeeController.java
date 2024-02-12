@@ -1,10 +1,7 @@
 package com.campany.controller;
 
 import com.campany.dto.EmployeeDTO;
-import com.campany.dto.ManagerDTO;
-import com.campany.mapper.ManagerMapper;
 import com.campany.repository.EmployeeRepository;
-import com.campany.repository.ManagerRepository;
 import com.campany.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,29 +55,72 @@ public class EmployeeController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if ("create".equals(action)){
+        if ("create".equals(action)) {
             // Логика создания нового сотрудника
             int employeeId = Integer.parseInt(request.getParameter("id"));
             String fullName = request.getParameter("fullName");
             BigDecimal salary = new BigDecimal(request.getParameter("salary"));
-            int managerId = Integer.parseInt(request.getParameter("managerId"));
+            Integer managerId = Integer.parseInt(request.getParameter("managerId"));
 
-            ManagerRepository managerRepository = new ManagerRepository();
-            ManagerDTO managerDTO = ManagerMapper.toDTO(managerRepository.findById(managerId));
-            employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerDTO));
-        } else if ("update".equals(action)) {
+            try {
+                EmployeeDTO employeeDTO = employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerId));
+
+                // Преобразование списка employeeDTOs в JSON строку
+                String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
+
+                // Установка типа содержимого и кодировки для ответа
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Отправка JSON строки в ответе
+                response.getWriter().write(employeeJson);
+
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if ("update".equals(action)) {
             // Логика обновления информации о существующем сотруднике
             int employeeId = Integer.parseInt(request.getParameter("id"));
-            String newFullName = request.getParameter("newFullName");
-            BigDecimal newSalary = new BigDecimal(request.getParameter("newSalary"));
+            String newFullName = request.getParameter("fullName");
+            BigDecimal newSalary = new BigDecimal(request.getParameter("salary"));
+            Integer newManagerId = Integer.parseInt(request.getParameter("managerId"));
 
             // Обновление информации о существующем сотруднике
-            EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, newFullName, newSalary);
-            employeeService.update(employeeDTO);
-        } else if ("delete".equals(action)) {
+            EmployeeDTO employeeDTO = new EmployeeDTO(newFullName, newSalary, newManagerId);
+            try {
+                EmployeeDTO employee = employeeService.update(employeeId, employeeDTO);
+
+                // Преобразование списка employeeDTOs в JSON строку
+                String employeeJson = new ObjectMapper().writeValueAsString(employee);
+
+                // Установка типа содержимого и кодировки для ответа
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                // Отправка JSON строки в ответе
+                response.getWriter().write(employeeJson);
+
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if ("delete".equals(action)) {
             // Логика удаления сотрудника
             int employeeId = Integer.parseInt(request.getParameter("id"));
-            employeeService.deleteById(employeeId);
+            try {
+                employeeService.deleteById(employeeId);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

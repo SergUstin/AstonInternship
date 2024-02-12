@@ -10,9 +10,10 @@
     </parent>
 
     <groupId>com.compony</groupId>
-    <artifactId>AtsonInternship</artifactId>
+    <artifactId>RestCrudOnServlet</artifactId>
     <version>1.0</version>
-    <name>AtsonInternship</name>
+    <name>RestCrudOnServlet</name>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -41,6 +42,21 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

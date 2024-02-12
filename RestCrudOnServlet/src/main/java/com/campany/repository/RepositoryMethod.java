@@ -5,7 +5,7 @@ import java.util.List;
 public interface RepositoryMethod<T> {
     T findById(Integer id);
     List<T> findAll();
-    void create(T item);
-    void update(T item);
-    void deleteById(Integer id);
+    void save(T item) throws ClassNotFoundException;
+    void update(T item) throws ClassNotFoundException;
+    void deleteById(Integer id) throws ClassNotFoundException;
 }

@@ -1,6 +1,5 @@
 package com.campany.repository;
 
-import com.campany.entity.Employee;
 import com.campany.entity.Manager;
 
 import java.sql.*;
@@ -8,22 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerRepository implements RepositoryMethod<Manager> {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/aston-test";
     private static final String USER = "postgres";
     private static final String PASSWORD = "root";
-
     @Override
     public Manager findById(Integer id) {
         Manager manager = null;
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
-            String sql = "SELECT * FROM manager WHERE id = ?";
+            String sql = "SELECT * FROM managers WHERE id = ?";
             try(PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         manager = new Manager(resultSet.getInt("id"), resultSet.getString("full_name"),
-                                resultSet.getBigDecimal("salary"),
-                                getEmployeesByManagerId(resultSet.getInt("id")));
+                                resultSet.getBigDecimal("salary"));
                     }
                 }
             }
@@ -32,19 +29,17 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         }
         return manager;
     }
-
     @Override
     public List<Manager> findAll() {
         List<Manager> managers = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
-            String sql = "SELECT * FROM manager";
+            String sql = "SELECT * FROM managers";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Manager manager = new Manager(resultSet.getInt("id"),
                             resultSet.getString("full_name"),
-                            resultSet.getBigDecimal("salary"),
-                            getEmployeesByManagerId(resultSet.getInt("id")));
+                            resultSet.getBigDecimal("salary"));
                     managers.add(manager);
                 }
             }
@@ -53,9 +48,9 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         }
         return managers;
     }
-
     @Override
-    public void create(Manager item) {
+    public void save(Manager item) throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -68,9 +63,9 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
             e.printStackTrace();
         }
     }
-
     @Override
-    public void update(Manager item) {
+    public void update(Manager item) throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "UPDATE managers SET full_name = ?, salary = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -82,11 +77,10 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id) throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
             String sql = "DELETE FROM managers WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -97,27 +91,4 @@ public class ManagerRepository implements RepositoryMethod<Manager> {
             e.printStackTrace();
         }
     }
-
-    private List<Employee> getEmployeesByManagerId(Integer managerId) {
-        List<Employee> employees = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
-            String sql = "SELECT * FROM employees WHERE manager_id = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, managerId);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        Employee employee = new Employee(resultSet.getInt("id"),
-                                resultSet.getString("full_name"),
-                                resultSet.getBigDecimal("salary"));
-                        employees.add(employee);
-                    }
-                }
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employees;
-    }
-
-
 }
