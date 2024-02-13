@@ -1,5 +1,6 @@
 package com.campany.dto;
 
+import com.campany.entity.Employee;
 import com.campany.entity.Manager;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,5 +29,16 @@ public class EmployeeDTO {
         this.fullName = fullName;
         this.salary = salary;
         this.managerId = manager;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof EmployeeDTO employee)) {
+            return false;
+        }
+        return this.id.equals(employee.id);
     }
 }
