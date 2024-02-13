@@ -14,7 +14,7 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
         log.info("Поиск сотрудника по ID: {}", id);
         Employee employee = null;
         try (Connection connection = getConnection()) {
-            String sql = "SELECT * FROM employees WHERE id = ?";
+            String sql = "SELECT id, full_name, salary, manager_id FROM employees WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
