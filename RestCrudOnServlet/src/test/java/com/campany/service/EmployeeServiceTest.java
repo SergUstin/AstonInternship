@@ -2,7 +2,6 @@ package com.campany.service;
 
 import com.campany.dto.EmployeeDTO;
 import com.campany.entity.Employee;
-import com.campany.mapper.EmployeeMapper;
 import com.campany.repository.EmployeeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +62,6 @@ public class EmployeeServiceTest {
         assertEquals(employees.size(), result.size());
         assertEquals(employees.get(0).getFullName(), result.get(0).getFullName());
         assertEquals(employees.get(1).getFullName(), result.get(1).getFullName());
-        // Другие проверки аналогично
     }
 
     @Test
@@ -83,7 +81,6 @@ public class EmployeeServiceTest {
         assertNotNull(result);
         assertEquals(employee.getId(), result.getId());
         assertEquals(employee.getFullName(), result.getFullName());
-        // Другие проверки аналогично
     }
 
     @Test(expected = IllegalArgumentException.class)
