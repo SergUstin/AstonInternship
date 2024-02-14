@@ -8,12 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class EmployeeRepository extends AbstractRepository<Employee> {
+public class EmployeeRepository implements RepositoryMethod<Employee> {
+    private final ConnectionToBase connectionToBase;
+
+    public EmployeeRepository(ConnectionToBase connectionToBase) {
+        this.connectionToBase = connectionToBase;
+    }
+
     @Override
     public Employee findById(Integer id) {
         log.info("Поиск сотрудника по ID: {}", id);
         Employee employee = null;
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "SELECT id, full_name, salary, manager_id FROM employees WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
@@ -38,7 +44,7 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
     public List<Employee> findAll() {
         log.info("Получение всех сотрудников");
         List<Employee> employees = new ArrayList<>();
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "SELECT * FROM employees";
             try (PreparedStatement statement = connection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
@@ -59,7 +65,7 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
     @Override
     public void save(Employee item) {
         log.info("Сохранение сотрудника: {}", item.getFullName());
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "INSERT INTO employees (id, full_name, salary, manager_id) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, item.getId());
@@ -76,7 +82,7 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
     @Override
     public void update(Employee item) {
         log.info("Обновление сотрудника: {}", item.getFullName());
-        try(Connection connection = getConnection()) {
+        try(Connection connection = connectionToBase.getConnection()) {
             String sql = "UPDATE employees SET full_name = ?, salary = ?, manager_id = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, item.getFullName());
@@ -93,7 +99,7 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
     @Override
     public void deleteById(Integer id) {
         log.info("Удаление сотрудника с id: {}", id);
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "DELETE FROM employees WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);

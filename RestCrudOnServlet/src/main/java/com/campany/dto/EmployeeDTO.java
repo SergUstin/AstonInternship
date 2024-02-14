@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -32,13 +33,22 @@ public class EmployeeDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof EmployeeDTO employee)) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        return this.id.equals(employee.id);
+        EmployeeDTO other = (EmployeeDTO) obj;
+        return Objects.equals(this.id, other.id) &&
+                Objects.equals(this.fullName, other.fullName) &&
+                Objects.equals(this.salary, other.salary) &&
+                Objects.equals(this.managerId, other.managerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fullName, salary, managerId);
     }
 }

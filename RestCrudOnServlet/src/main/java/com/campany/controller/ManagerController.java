@@ -1,6 +1,7 @@
 package com.campany.controller;
 
 import com.campany.dto.ManagerDTO;
+import com.campany.repository.ConnectionToBase;
 import com.campany.repository.ManagerRepository;
 import com.campany.service.ManagerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ManagerController extends HttpServlet {
     private ManagerService managerService;
     public void init() {
-        managerService = new ManagerService(new ManagerRepository());
+        managerService = new ManagerService(new ManagerRepository(new ConnectionToBase()));
     }
     protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

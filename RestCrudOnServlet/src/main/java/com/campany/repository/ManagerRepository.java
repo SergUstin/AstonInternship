@@ -8,12 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class ManagerRepository extends AbstractRepository<Manager> {
+public class ManagerRepository implements RepositoryMethod<Manager> {
+
+    private final ConnectionToBase connectionToBase;
+
+    public ManagerRepository(ConnectionToBase connectionToBase) {
+        this.connectionToBase = connectionToBase;
+    }
+
     @Override
     public Manager findById(Integer id) {
         log.info("Поиск менеджера по ID: {}", id);
         Manager manager = null;
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "SELECT * FROM managers WHERE id = ?";
             try(PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);
@@ -36,7 +43,7 @@ public class ManagerRepository extends AbstractRepository<Manager> {
     public List<Manager> findAll() {
         log.info("Получение всех менеджеров");
         List<Manager> managers = new ArrayList<>();
-        try(Connection connection = getConnection()) {
+        try(Connection connection = connectionToBase.getConnection()) {
             String sql = "SELECT * FROM managers";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -56,7 +63,7 @@ public class ManagerRepository extends AbstractRepository<Manager> {
     @Override
     public void save(Manager item) {
         log.info("Сохранение менеджера: {}", item.getFullName());
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, item.getId());
@@ -72,7 +79,7 @@ public class ManagerRepository extends AbstractRepository<Manager> {
     @Override
     public void update(Manager item) {
         log.info("Обновление менеджера: {}", item.getFullName());
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "UPDATE managers SET full_name = ?, salary = ? WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, item.getFullName());
@@ -88,7 +95,7 @@ public class ManagerRepository extends AbstractRepository<Manager> {
     @Override
     public void deleteById(Integer id) {
         log.info("Удаление менеджера с id: {}", id);
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionToBase.getConnection()) {
             String sql = "DELETE FROM managers WHERE id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, id);

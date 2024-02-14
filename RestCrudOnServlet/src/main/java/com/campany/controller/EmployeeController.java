@@ -1,6 +1,7 @@
 package com.campany.controller;
 
 import com.campany.dto.EmployeeDTO;
+import com.campany.repository.ConnectionToBase;
 import com.campany.repository.EmployeeRepository;
 import com.campany.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +18,10 @@ import java.util.List;
 @WebServlet("/employee/*")
 public class EmployeeController extends HttpServlet {
     private EmployeeService employeeService;
+
     public void init() {
-        employeeService = new EmployeeService(new EmployeeRepository());    }
+        employeeService = new EmployeeService(new EmployeeRepository(new ConnectionToBase()));
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

@@ -8,11 +8,9 @@ import java.sql.SQLException;
 
 /**
  * Абстрактный класс, предоставляющий реализацию некоторых методов для взаимодействия с репозиторием.
- *
- * @param <T> Тип сущности, с которой работает репозиторий
  */
 @Slf4j
-public abstract class AbstractRepository<T> implements RepositoryMethod<T> {
+public class ConnectionToBase {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/aston-test";
     private static final String USER = "postgres";
     private static final String PASSWORD = "root";

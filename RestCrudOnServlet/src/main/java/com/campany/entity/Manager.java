@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -18,5 +19,21 @@ public class Manager {
         this.id = id;
         this.fullName = fullName;
         this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Manager manager)) {
+            return false;
+        }
+        return this.id.equals(manager.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

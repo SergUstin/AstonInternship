@@ -1,8 +1,7 @@
 Configuration:
-    status: warn
+    status: debug
 
     appends:
-
         RollingFile:
             - name: LogToRollingFile
               fileName: log/logging.log
