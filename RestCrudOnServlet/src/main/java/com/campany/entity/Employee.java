@@ -27,4 +27,9 @@ public class Employee {
         }
         return this.id.equals(employee.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
