@@ -53,19 +53,19 @@ public class EmployeeService implements CrudService<EmployeeDTO> {
         }
     }
 
-    @Override
-    public EmployeeDTO update(Integer id, EmployeeDTO item) {
-        log.info("Обновление информации о сотруднике с id: {}.", id);
-        if (id != null && item != null) {
-            item.setId(id);
-            Employee employee = EmployeeMapper.toEntity(item);
-            employeeRepository.update(employee);
-            return EmployeeMapper.toDTO(employee);
-        } else {
-            log.error("Невозможно обновить информацию о сотруднике: указан неверный id или передан пустой объект EmployeeDTO.");
-            throw new IllegalArgumentException("Невозможно обновить информацию о сотруднике: указан неверный id или передан пустой объект EmployeeDTO.");
-        }
-    }
+//    @Override
+//    public EmployeeDTO update(Integer id, EmployeeDTO item) {
+//        log.info("Обновление информации о сотруднике с id: {}.", id);
+//        if (id != null && item != null) {
+//            item.setId(id);
+//            Employee employee = EmployeeMapper.toEntity(item);
+//            employeeRepository.update(employee);
+//            return EmployeeMapper.toDTO(employee);
+//        } else {
+//            log.error("Невозможно обновить информацию о сотруднике: указан неверный id или передан пустой объект EmployeeDTO.");
+//            throw new IllegalArgumentException("Невозможно обновить информацию о сотруднике: указан неверный id или передан пустой объект EmployeeDTO.");
+//        }
+//    }
 
     @Override
     public void deleteById(Integer id) {
