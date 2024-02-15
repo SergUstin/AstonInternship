@@ -52,6 +52,7 @@ public class EmployeeService implements CrudService<EmployeeDTO> {
             throw new IllegalArgumentException("Невозможно создать сотрудника: передан пустой объект EmployeeDTO");
         }
     }
+
     @Override
     public EmployeeDTO update(Integer id, EmployeeDTO item) {
         log.info("Обновление информации о сотруднике с id: {}.", id);
