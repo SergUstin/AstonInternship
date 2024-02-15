@@ -9,11 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-public class EmployeeService implements CrudService<EmployeeDTO>{
+public class EmployeeService implements CrudService<EmployeeDTO> {
     private final EmployeeRepository employeeRepository;
+
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
+
     @Override
     public EmployeeDTO getById(Integer id) {
         log.info("Запрос информации о сотруднике с id: {}.", id);
@@ -30,12 +32,14 @@ public class EmployeeService implements CrudService<EmployeeDTO>{
             throw new IllegalArgumentException("Неверно указан id для запроса информации о сотруднике");
         }
     }
+
     @Override
     public List<EmployeeDTO> getAll() {
         log.info("Запрос списка всех сотрудников.");
         List<Employee> employees = employeeRepository.findAll();
         return EmployeeMapper.toDTOList(employees);
     }
+
     @Override
     public EmployeeDTO create(EmployeeDTO item) {
         log.info("Создание нового сотрудника.");
@@ -48,6 +52,7 @@ public class EmployeeService implements CrudService<EmployeeDTO>{
             throw new IllegalArgumentException("Невозможно создать сотрудника: передан пустой объект EmployeeDTO");
         }
     }
+
     @Override
     public EmployeeDTO update(Integer id, EmployeeDTO item) {
         log.info("Обновление информации о сотруднике с id: {}.", id);
@@ -61,6 +66,7 @@ public class EmployeeService implements CrudService<EmployeeDTO>{
             throw new IllegalArgumentException("Невозможно обновить информацию о сотруднике: указан неверный id или передан пустой объект EmployeeDTO.");
         }
     }
+
     @Override
     public void deleteById(Integer id) {
         log.info("Удаление сотрудника с id: {}.", id);
