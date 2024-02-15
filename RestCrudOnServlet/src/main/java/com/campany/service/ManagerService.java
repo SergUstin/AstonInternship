@@ -13,9 +13,11 @@ import java.util.List;
 @Slf4j
 public class ManagerService implements CrudService<ManagerDTO> {
     private final ManagerRepository managerRepository;
+
     public ManagerService(ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
+
     @Override
     public ManagerDTO getById(Integer id) {
         log.info("Запрос информации о менеджере с id: {}.", id);
@@ -32,12 +34,14 @@ public class ManagerService implements CrudService<ManagerDTO> {
             throw new IllegalArgumentException("Неверно указан id для запроса информации о менеджере");
         }
     }
+
     @Override
     public List<ManagerDTO> getAll() {
         log.info("Запрос списка всех менеджеров.");
         List<Manager> managers = managerRepository.findAll();
         return ManagerMapper.toDTOList(managers);
     }
+
     @Override
     public ManagerDTO create(ManagerDTO item) {
         log.info("Создание нового менеджера.");
@@ -50,6 +54,7 @@ public class ManagerService implements CrudService<ManagerDTO> {
             throw new IllegalArgumentException("Невозможно создать менеджера: передан пустой объект ManagerDTO");
         }
     }
+
     @Override
     public ManagerDTO update(Integer id, ManagerDTO item) {
         log.info("Обновление информации о менеджере с id: {}.", id);
@@ -63,6 +68,7 @@ public class ManagerService implements CrudService<ManagerDTO> {
             throw new IllegalArgumentException("Невозможно обновить информацию о менеджере: указан неверный id или передан пустой объект ManagerDTO.");
         }
     }
+
     @Override
     public void deleteById(Integer id) {
         log.info("Удаление менеджера с id: {}.", id);
