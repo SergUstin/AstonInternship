@@ -1,9 +1,8 @@
-package com.campany.service;
+package com.campany.service.impl;
 
 import com.campany.dto.ManagerDTO;
 import com.campany.entity.Manager;
 import com.campany.repository.ManagerRepository;
-import com.campany.service.impl.ManagerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

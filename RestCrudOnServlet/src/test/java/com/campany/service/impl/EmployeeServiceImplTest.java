@@ -1,9 +1,8 @@
-package com.campany.service;
+package com.campany.service.impl;
 
 import com.campany.dto.EmployeeDTO;
 import com.campany.entity.Employee;
 import com.campany.repository.EmployeeRepository;
-import com.campany.service.impl.EmployeeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
