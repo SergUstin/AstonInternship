@@ -1,18 +1,19 @@
-package com.campany.service;
+package com.campany.service.impl;
 
 import com.campany.dto.EmployeeDTO;
 import com.campany.entity.Employee;
 import com.campany.mapper.EmployeeMapper;
 import com.campany.repository.EmployeeRepository;
+import com.campany.service.CrudService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
-public class EmployeeService implements CrudService<EmployeeDTO> {
+public class EmployeeServiceImpl implements CrudService<EmployeeDTO> {
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

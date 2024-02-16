@@ -1,20 +1,19 @@
-package com.campany.service;
+package com.campany.service.impl;
 
 import com.campany.dto.ManagerDTO;
-import com.campany.entity.Employee;
 import com.campany.entity.Manager;
-import com.campany.mapper.EmployeeMapper;
 import com.campany.mapper.ManagerMapper;
 import com.campany.repository.ManagerRepository;
+import com.campany.service.CrudService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
-public class ManagerService implements CrudService<ManagerDTO> {
+public class ManagerServiceImpl implements CrudService<ManagerDTO> {
     private final ManagerRepository managerRepository;
 
-    public ManagerService(ManagerRepository managerRepository) {
+    public ManagerServiceImpl(ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
 

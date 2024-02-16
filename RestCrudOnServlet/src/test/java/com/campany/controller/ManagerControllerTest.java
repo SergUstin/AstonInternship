@@ -1,7 +1,7 @@
 package com.campany.controller;
 
 import com.campany.dto.ManagerDTO;
-import com.campany.service.ManagerService;
+import com.campany.service.impl.ManagerServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
 
 public class ManagerControllerTest {
     @Mock
-    private ManagerService managerService;
+    private ManagerServiceImpl managerServiceImpl;
 
     @InjectMocks
     private ManagerController managerController;
@@ -48,7 +48,7 @@ public class ManagerControllerTest {
 
         when(request.getParameter("action")).thenReturn("getById");
         when(request.getParameter("id")).thenReturn("1");
-        when(managerService.getById(1)).thenReturn(managerDTO);
+        when(managerServiceImpl.getById(1)).thenReturn(managerDTO);
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -83,7 +83,7 @@ public class ManagerControllerTest {
         List<ManagerDTO> managerDTOS = Arrays.asList(manager1, manager2);
 
         when(request.getParameter("action")).thenReturn("getAll");
-        when(managerService.getAll()).thenReturn(managerDTOS);
+        when(managerServiceImpl.getAll()).thenReturn(managerDTOS);
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -115,7 +115,7 @@ public class ManagerControllerTest {
         // Создаем employeeDTO, который ожидается вернуться при создании
         ManagerDTO createdManagerDTO = new ManagerDTO(1, "John Doe", new BigDecimal(5000));
         // Задаем поведение сервиса при вызове create
-        when(managerService.create(any(ManagerDTO.class))).thenReturn(createdManagerDTO);
+        when(managerServiceImpl.create(any(ManagerDTO.class))).thenReturn(createdManagerDTO);
 
         // Создаем StringWriter, чтобы записать результаты в него
         StringWriter stringWriter = new StringWriter();
@@ -125,7 +125,7 @@ public class ManagerControllerTest {
         managerController.doPost(request, response);
 
         // Assert
-        verify(managerService).create(any(ManagerDTO.class));
+        verify(managerServiceImpl).create(any(ManagerDTO.class));
 
         // Проверяем, что корректный JSON был записан в response
         String expectedJson = "{\"id\":1,\"fullName\":\"John Doe\",\"salary\":5000}";
@@ -153,7 +153,7 @@ public class ManagerControllerTest {
         managerController.doPut(request, response);
 
         // Проверка вызовов методов
-        verify(managerService).update(1, new ManagerDTO("John Doe", new BigDecimal("1000")));
+        verify(managerServiceImpl).update(1, new ManagerDTO("John Doe", new BigDecimal("1000")));
         verify(response).setContentType("application/json");
         verify(response).setCharacterEncoding("UTF-8");
         verify(response.getWriter()).write(Mockito.anyString());
@@ -173,6 +173,6 @@ public class ManagerControllerTest {
         managerController.doDelete(request, response);
 
         // Проверка вызова метода
-        Mockito.verify(managerService).deleteById(1);
+        Mockito.verify(managerServiceImpl).deleteById(1);
     }
 }

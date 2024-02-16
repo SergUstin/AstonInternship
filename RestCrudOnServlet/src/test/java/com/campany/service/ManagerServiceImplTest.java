@@ -3,6 +3,7 @@ package com.campany.service;
 import com.campany.dto.ManagerDTO;
 import com.campany.entity.Manager;
 import com.campany.repository.ManagerRepository;
+import com.campany.service.impl.ManagerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,12 +19,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ManagerServiceTest {
+public class ManagerServiceImplTest {
     @Mock
     private ManagerRepository managerRepository;
 
     @InjectMocks
-    private ManagerService managerService;
+    private ManagerServiceImpl managerServiceImpl;
 
     @Test
     public void testGetById() {
@@ -37,7 +38,7 @@ public class ManagerServiceTest {
         when(managerRepository.findById(id)).thenReturn(manager);
 
         // Вызываем метод getById и проверяем результат
-        ManagerDTO result = managerService.getById(id);
+        ManagerDTO result = managerServiceImpl.getById(id);
         assertEquals(id, result.getId());
         assertEquals("John Smith", result.getFullName());
 
@@ -63,7 +64,7 @@ public class ManagerServiceTest {
         when(managerRepository.findAll()).thenReturn(managers);
 
         // Вызываем метод getAll и проверяем результат
-        List<ManagerDTO> result = managerService.getAll();
+        List<ManagerDTO> result = managerServiceImpl.getAll();
         assertEquals(2, result.size());
 
         ManagerDTO managerDTO1 = result.get(0);
@@ -89,7 +90,7 @@ public class ManagerServiceTest {
         doNothing().when(managerRepository).save(any(Manager.class));
 
         // Вызов тестируемого метода
-        ManagerDTO result = managerService.create(managerDTO);
+        ManagerDTO result = managerServiceImpl.create(managerDTO);
 
         // Проверка результатов
         assertNotNull(result);
@@ -100,7 +101,7 @@ public class ManagerServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCreateWithNullEmployeeDTO() {
         // Вызов тестируемого метода с пустым объектом EmployeeDTO
-        managerService.create(null);
+        managerServiceImpl.create(null);
     }
 
     @Test
@@ -113,7 +114,7 @@ public class ManagerServiceTest {
         doNothing().when(managerRepository).update(any(Manager.class));
 
         Integer id = 1;
-        ManagerDTO updatedManager = managerService.update(id, item);
+        ManagerDTO updatedManager = managerServiceImpl.update(id, item);
 
         // Проверяем, что обновленный объект имеет ожидаемые значения
         assertEquals(updatedManager.getFullName(), item.getFullName());
@@ -127,7 +128,7 @@ public class ManagerServiceTest {
         Integer id = null;
         ManagerDTO item = new ManagerDTO();
 
-        managerService.update(id, item);
+        managerServiceImpl.update(id, item);
 
         // Добавим утверждение, чтобы убедиться, что исключение IllegalArgumentException было выброшено
         verify(managerRepository, never()).findById(any());
@@ -138,7 +139,7 @@ public class ManagerServiceTest {
         Integer id = 1;
         ManagerDTO item = null;
 
-        managerService.update(id, item);
+        managerServiceImpl.update(id, item);
 
         // Добавим утверждение, чтобы убедиться, что исключение IllegalArgumentException было выброшено
         verify(managerRepository, never()).findById(any());
@@ -153,7 +154,7 @@ public class ManagerServiceTest {
         when(managerRepository.findById(id)).thenReturn(manager);
 
         // Вызов метода для тестирования
-        managerService.deleteById(id);
+        managerServiceImpl.deleteById(id);
 
         // Утверждения
         verify(managerRepository, times(1)).findById(id);
@@ -168,7 +169,7 @@ public class ManagerServiceTest {
         when(managerRepository.findById(id)).thenReturn(null);
 
         // Вызов метода для тестирования
-        managerService.deleteById(id);
+        managerServiceImpl.deleteById(id);
 
         // Утверждения
         verify(managerRepository, times(1)).findById(id);
@@ -180,7 +181,7 @@ public class ManagerServiceTest {
         Integer id = null;
 
         // Вызов метода для тестирования
-        managerService.deleteById(id);
+        managerServiceImpl.deleteById(id);
 
         // Утверждения
         verify(managerRepository, never()).findById(any());

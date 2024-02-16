@@ -3,7 +3,7 @@ package com.campany.controller;
 import com.campany.dto.EmployeeDTO;
 import com.campany.repository.ConnectionToBase;
 import com.campany.repository.EmployeeRepository;
-import com.campany.service.EmployeeService;
+import com.campany.service.impl.EmployeeServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -17,17 +17,17 @@ import java.util.List;
 
 @WebServlet("/employee/*")
 public class EmployeeController extends HttpServlet {
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
     public void init() {
-        employeeService = new EmployeeService(new EmployeeRepository(new ConnectionToBase()));
+        employeeServiceImpl = new EmployeeServiceImpl(new EmployeeRepository(new ConnectionToBase()));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if ("getById".equals(action)) {
             Integer employeeId = Integer.parseInt(request.getParameter("id"));
-            EmployeeDTO employeeDTO = employeeService.getById(employeeId);
+            EmployeeDTO employeeDTO = employeeServiceImpl.getById(employeeId);
             // Преобразование объекта employeeDTO в JSON строку
             String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
             // Установка типа содержимого и кодировки для ответа
@@ -36,7 +36,7 @@ public class EmployeeController extends HttpServlet {
             // Отправка JSON строки в ответ
             response.getWriter().write(employeeJson);
         } else if ("getAll".equals(action)) {
-            List<EmployeeDTO> employeeDTOS = employeeService.getAll();
+            List<EmployeeDTO> employeeDTOS = employeeServiceImpl.getAll();
             // Преобразование списка employeeDTOs в JSON строку
             String employeeJson = new ObjectMapper().writeValueAsString(employeeDTOS);
             // Установка типа содержимого и кодировки для ответа
@@ -54,7 +54,7 @@ public class EmployeeController extends HttpServlet {
             String fullName = request.getParameter("fullName");
             BigDecimal salary = new BigDecimal(request.getParameter("salary"));
             Integer managerId = Integer.parseInt(request.getParameter("managerId"));
-            EmployeeDTO employeeDTO = employeeService.create(new EmployeeDTO(employeeId, fullName, salary, managerId));
+            EmployeeDTO employeeDTO = employeeServiceImpl.create(new EmployeeDTO(employeeId, fullName, salary, managerId));
             // Преобразование списка employeeDTOs в JSON строку
             String employeeJson = new ObjectMapper().writeValueAsString(employeeDTO);
             // Установка типа содержимого и кодировки для ответа
@@ -74,7 +74,7 @@ public class EmployeeController extends HttpServlet {
             Integer newManagerId = Integer.parseInt(request.getParameter("managerId"));
             // Обновление информации о существующем сотруднике
             EmployeeDTO employeeDTO = new EmployeeDTO(newFullName, newSalary, newManagerId);
-            EmployeeDTO employee = employeeService.update(employeeId, employeeDTO);
+            EmployeeDTO employee = employeeServiceImpl.update(employeeId, employeeDTO);
             // Преобразование списка employeeDTOs в JSON строку
             String employeeJson = new ObjectMapper().writeValueAsString(employee);
             // Установка типа содержимого и кодировки для ответа
@@ -89,7 +89,7 @@ public class EmployeeController extends HttpServlet {
         if ("delete".equals(action)) {
             // Логика удаления сотрудника
             int employeeId = Integer.parseInt(request.getParameter("id"));
-            employeeService.deleteById(employeeId);
+            employeeServiceImpl.deleteById(employeeId);
         }
     }
 }

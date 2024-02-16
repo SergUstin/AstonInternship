@@ -3,6 +3,7 @@ package com.campany.service;
 import com.campany.dto.EmployeeDTO;
 import com.campany.entity.Employee;
 import com.campany.repository.EmployeeRepository;
+import com.campany.service.impl.EmployeeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -14,14 +15,14 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class EmployeeServiceTest {
+public class EmployeeServiceImplTest {
     private EmployeeRepository employeeRepository;
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
     @Before
     public void setup() {
         employeeRepository = mock(EmployeeRepository.class);
-        employeeService = new EmployeeService(employeeRepository);
+        employeeServiceImpl = new EmployeeServiceImpl(employeeRepository);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.findById(1)).thenReturn(new Employee(1, "John Doe", new BigDecimal("50000"), 5));
 
         // Выполним метод
-        EmployeeDTO actualDto = employeeService.getById(1);
+        EmployeeDTO actualDto = employeeServiceImpl.getById(1);
 
         // Проверим, что метод вернул ожидаемый объект
         assertEquals(expectedDto, actualDto);
@@ -44,7 +45,7 @@ public class EmployeeServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void testGetEmployeeByIdWithNullId() {
-        employeeService.getById(null); // Вызовем метод с null в качестве id, ожидаем RuntimeException
+        employeeServiceImpl.getById(null); // Вызовем метод с null в качестве id, ожидаем RuntimeException
     }
 
     @Test
@@ -56,7 +57,7 @@ public class EmployeeServiceTest {
         Mockito.when(employeeRepository.findAll()).thenReturn(employees);
 
         // Вызов тестируемого метода
-        List<EmployeeDTO> result = employeeService.getAll();
+        List<EmployeeDTO> result = employeeServiceImpl.getAll();
 
         // Проверка результатов
         assertEquals(employees.size(), result.size());
@@ -75,7 +76,7 @@ public class EmployeeServiceTest {
         doNothing().when(employeeRepository).save(any(Employee.class));
 
         // Вызов тестируемого метода
-        EmployeeDTO result = employeeService.create(employeeDTO);
+        EmployeeDTO result = employeeServiceImpl.create(employeeDTO);
 
         // Проверка результатов
         assertNotNull(result);
@@ -86,7 +87,7 @@ public class EmployeeServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCreateWithNullEmployeeDTO() {
         // Вызов тестируемого метода с пустым объектом EmployeeDTO
-        employeeService.create(null);
+        employeeServiceImpl.create(null);
     }
 
     @Test
@@ -100,7 +101,7 @@ public class EmployeeServiceTest {
         doNothing().when(employeeRepository).update(any(Employee.class));
 
         Integer id = 1;
-        EmployeeDTO updatedEmployee = employeeService.update(id, item);
+        EmployeeDTO updatedEmployee = employeeServiceImpl.update(id, item);
 
         // Проверяем, что обновленный объект имеет ожидаемые значения
         assertEquals(updatedEmployee.getFullName(), item.getFullName());
@@ -115,7 +116,7 @@ public class EmployeeServiceTest {
         Integer id = null;
         EmployeeDTO item = new EmployeeDTO();
 
-        employeeService.update(id, item);
+        employeeServiceImpl.update(id, item);
 
         // Добавим утверждение, чтобы убедиться, что исключение IllegalArgumentException было выброшено
         verify(employeeRepository, never()).findById(any());
@@ -126,7 +127,7 @@ public class EmployeeServiceTest {
         Integer id = 1;
         EmployeeDTO item = null;
 
-        employeeService.update(id, item);
+        employeeServiceImpl.update(id, item);
 
         // Добавим утверждение, чтобы убедиться, что исключение IllegalArgumentException было выброшено
         verify(employeeRepository, never()).findById(any());
@@ -141,7 +142,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.findById(id)).thenReturn(employee);
 
         // Вызов метода для тестирования
-        employeeService.deleteById(id);
+        employeeServiceImpl.deleteById(id);
 
         // Утверждения
         verify(employeeRepository, times(1)).findById(id);
@@ -156,7 +157,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.findById(id)).thenReturn(null);
 
         // Вызов метода для тестирования
-        employeeService.deleteById(id);
+        employeeServiceImpl.deleteById(id);
 
         // Утверждения
         verify(employeeRepository, times(1)).findById(id);
@@ -168,7 +169,7 @@ public class EmployeeServiceTest {
         Integer id = null;
 
         // Вызов метода для тестирования
-        employeeService.deleteById(id);
+        employeeServiceImpl.deleteById(id);
 
         // Утверждения
         verify(employeeRepository, never()).findById(any());

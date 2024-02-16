@@ -1,7 +1,7 @@
 package com.campany.controller;
 
 import com.campany.dto.EmployeeDTO;
-import com.campany.service.EmployeeService;
+import com.campany.service.impl.EmployeeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 public class EmployeeControllerTest {
     @Mock
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
     @InjectMocks
     private EmployeeController employeeController;
@@ -44,7 +44,7 @@ public class EmployeeControllerTest {
 
         when(request.getParameter("action")).thenReturn("getById");
         when(request.getParameter("id")).thenReturn("1");
-        when(employeeService.getById(1)).thenReturn(employeeDTO);
+        when(employeeServiceImpl.getById(1)).thenReturn(employeeDTO);
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -81,7 +81,7 @@ public class EmployeeControllerTest {
         List<EmployeeDTO> employeeDTOS = Arrays.asList(employee1, employee2);
 
         when(request.getParameter("action")).thenReturn("getAll");
-        when(employeeService.getAll()).thenReturn(employeeDTOS);
+        when(employeeServiceImpl.getAll()).thenReturn(employeeDTOS);
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -113,7 +113,7 @@ public class EmployeeControllerTest {
         // Создаем employeeDTO, который ожидается вернуться при создании
         EmployeeDTO createdEmployeeDTO = new EmployeeDTO(1, "John Doe", new BigDecimal(5000), 1);
         // Задаем поведение сервиса при вызове create
-        when(employeeService.create(any(EmployeeDTO.class))).thenReturn(createdEmployeeDTO);
+        when(employeeServiceImpl.create(any(EmployeeDTO.class))).thenReturn(createdEmployeeDTO);
 
         // Создаем StringWriter, чтобы записать результаты в него
         StringWriter stringWriter = new StringWriter();
@@ -123,7 +123,7 @@ public class EmployeeControllerTest {
         employeeController.doPost(request, response);
 
         // Assert
-        verify(employeeService).create(any(EmployeeDTO.class));
+        verify(employeeServiceImpl).create(any(EmployeeDTO.class));
 
         // Проверяем, что корректный JSON был записан в response
         String expectedJson = "{\"id\":1,\"fullName\":\"John Doe\",\"salary\":5000,\"managerId\":1}";
@@ -152,7 +152,7 @@ public class EmployeeControllerTest {
         employeeController.doPut(request, response);
 
         // Проверка вызовов методов
-        verify(employeeService).update(1, new EmployeeDTO("John Doe", new BigDecimal("1000"), 2));
+        verify(employeeServiceImpl).update(1, new EmployeeDTO("John Doe", new BigDecimal("1000"), 2));
         verify(response).setContentType("application/json");
         verify(response).setCharacterEncoding("UTF-8");
         verify(response.getWriter()).write(Mockito.anyString());
@@ -172,7 +172,7 @@ public class EmployeeControllerTest {
         employeeController.doDelete(request, response);
 
         // Проверка вызова метода
-        Mockito.verify(employeeService).deleteById(1);
+        Mockito.verify(employeeServiceImpl).deleteById(1);
     }
 
 
