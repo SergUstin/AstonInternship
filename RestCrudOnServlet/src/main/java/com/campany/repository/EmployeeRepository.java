@@ -25,7 +25,7 @@ public class EmployeeRepository implements RepositoryMethod<Employee> {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        employee = new Employee(resultSet.getInt("id"),
+                        employee = new Employee(resultSet.getInt("id") // вложенность должна быть не больше 2 блоков, а у тебя 3 трая вложено + еще внутри if, как такое читать?
                                 resultSet.getString("full_name"),
                                 resultSet.getBigDecimal("salary"),
                                 resultSet.getInt("manager_id"));
