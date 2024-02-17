@@ -33,7 +33,7 @@ public class EmployeeControllerTest {
     @Test
     public void testDoGet_withActionGetById_shouldReturnEmployeeById() throws Exception {
         // Arrange
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletRequest request = mock(HttpServletRequest.class); // есть mockMvc а тут ты пишешь тесты ради тестов, все замокано
         HttpServletResponse response = mock(HttpServletResponse.class);
 
         EmployeeDTO employeeDTO = new EmployeeDTO();
