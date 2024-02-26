@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Order {
     private Long id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private BigInteger userId;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItem> items;
