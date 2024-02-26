@@ -1,4 +1,4 @@
-package com.compony.ordermanagementservice.model;
+package com.company.ordermanagementservice.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

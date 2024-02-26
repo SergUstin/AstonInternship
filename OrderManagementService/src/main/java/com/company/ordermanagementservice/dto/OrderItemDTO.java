@@ -1,4 +1,4 @@
-package com.compony.ordermanagementservice.dto;
+package com.company.ordermanagementservice.dto;
 
 import lombok.Data;
 

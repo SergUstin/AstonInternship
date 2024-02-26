@@ -1,11 +1,11 @@
-package com.compony.ordermanagementservice.mapper;
+package com.company.ordermanagementservice.mapper;
 
-import com.compony.ordermanagementservice.dto.OrderDTO;
-import com.compony.ordermanagementservice.dto.OrderItemDTO;
-import com.compony.ordermanagementservice.model.Order;
-import com.compony.ordermanagementservice.model.OrderItem;
-import com.compony.ordermanagementservice.model.PaymentStatus;
-import com.compony.ordermanagementservice.model.ShipmentStatus;
+import com.company.ordermanagementservice.dto.OrderDTO;
+import com.company.ordermanagementservice.model.Order;
+import com.company.ordermanagementservice.model.OrderItem;
+import com.company.ordermanagementservice.model.PaymentStatus;
+import com.company.ordermanagementservice.model.ShipmentStatus;
+import com.company.ordermanagementservice.dto.OrderItemDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
