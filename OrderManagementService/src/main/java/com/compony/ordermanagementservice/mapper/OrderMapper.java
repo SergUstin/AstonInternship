@@ -25,7 +25,6 @@ public class OrderMapper {
         dto.setItems(itemDTOList);
         dto.setPaymentStatus(order.getPaymentStatus().name());
         dto.setShipmentStatus(order.getShipmentStatus().name());
-        dto.setRegistrationDate(order.getRegistrationDate());
         return dto;
     }
 
@@ -40,7 +39,6 @@ public class OrderMapper {
         order.setItems(itemList);
         order.setShipmentStatus(ShipmentStatus.valueOf(dto.getShipmentStatus()));
         order.setPaymentStatus(PaymentStatus.valueOf(dto.getPaymentStatus()));
-        order.setRegistrationDate(dto.getRegistrationDate());
         return order;
     }
 
