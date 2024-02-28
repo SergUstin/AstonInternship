@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -21,7 +22,8 @@ public class Order {
     @Column(name = "user_id")
     private BigInteger userId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private List<OrderItem> items;
 
     @Enumerated(EnumType.STRING)

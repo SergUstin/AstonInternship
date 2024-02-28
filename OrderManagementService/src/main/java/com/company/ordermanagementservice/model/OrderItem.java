@@ -16,9 +16,8 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order orderId;
+    @Column(name = "item_name")
+    private String itemName;
 
     private int quantity;
 }

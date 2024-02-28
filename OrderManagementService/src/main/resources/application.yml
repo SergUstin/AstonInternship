@@ -27,4 +27,4 @@ logging:
     #    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
   file:
-    name: log/logging.log
+    name: OrderManagementService/log/logging.log

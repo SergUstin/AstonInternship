@@ -13,5 +13,4 @@ public class OrderDTO {
     private List<OrderItemDTO> items;
     private String paymentStatus;
     private String shipmentStatus;
-    private LocalDateTime registrationDate;
 }

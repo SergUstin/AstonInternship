@@ -45,10 +45,7 @@ public class OrderMapper {
     public OrderItem toEntity(OrderItemDTO dto) {
         OrderItem item = new OrderItem();
         item.setId(dto.getId());
-        // создаем объект Order
-        Order order = new Order();
-        order.setId(dto.getOrderId());
-        item.setOrderId(order);
+        item.setItemName(dto.getItemName());
         item.setQuantity(dto.getQuantity());
         return item;
     }
@@ -56,7 +53,7 @@ public class OrderMapper {
     public OrderItemDTO toDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
         dto.setId(item.getId());
-        dto.setOrderId(item.getOrderId().getId());
+        dto.setItemName(item.getItemName());
         dto.setQuantity(item.getQuantity());
         return dto;
     }
