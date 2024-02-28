@@ -2,9 +2,11 @@ package com.company.ordermanagementservice.dto;
 
 import lombok.Data;
 
+import java.math.BigInteger;
+
 @Data
 public class OrderItemDTO {
-    private Long id;
-    private Long orderId;
+    private BigInteger id;
+    private BigInteger orderId;
     private int quantity;
 }
