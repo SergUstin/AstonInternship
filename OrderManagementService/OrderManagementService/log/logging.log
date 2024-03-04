@@ -1,0 +1,58 @@
+15:18:10.074 [main] INFO  c.c.o.OrderManagementServiceApplicationTests - Starting OrderManagementServiceApplicationTests using Java 17.0.9 with PID 81428 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+15:18:10.075 [main] DEBUG c.c.o.OrderManagementServiceApplicationTests - Running with Spring Boot v3.2.3, Spring v6.1.4
+15:18:10.076 [main] INFO  c.c.o.OrderManagementServiceApplicationTests - No active profile set, falling back to 1 default profile: "default"
+15:18:10.745 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+15:18:10.795 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+15:18:11.211 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+15:18:11.483 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5b066c33
+15:18:11.486 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+15:18:11.624 [main] INFO  liquibase.database - Set default schema name to public
+15:18:11.756 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+15:18:11.762 [main] INFO  liquibase.command - Dropping Database Objects in schema: order_management.public
+15:18:11.909 [main] WARN  liquibase.executor - удаление распространяется на объект ограничение order_items_fk в отношении таблица orders
+15:18:12.000 [main] INFO  liquibase.database - Successfully deleted all supported object types in schema order_management.public.
+15:18:12.009 [main] WARN  liquibase.lockservice - Failed to release change log lock
+15:18:12.011 [main] INFO  liquibase.command - Command execution complete
+15:18:12.280 [main] INFO  liquibase.changelog - Creating database history table with name: public.databasechangelog
+15:18:12.296 [main] INFO  liquibase.changelog - Reading from public.databasechangelog
+15:18:12.388 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+15:18:12.388 [main] INFO  liquibase.command - Using deploymentId: 9554692388
+15:18:12.390 [main] INFO  liquibase.changelog - Reading from public.databasechangelog
+15:18:12.496 [main] INFO  liquibase.changelog - Table orders created
+15:18:12.498 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::createOrderTable::admin ran successfully in 90ms
+15:18:12.543 [main] INFO  liquibase.changelog - Table order_items created
+15:18:12.544 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::createOrderItemTable::admin ran successfully in 39ms
+15:18:12.549 [main] INFO  liquibase.changelog - Columns items_id(BIGINT) added to orders
+15:18:12.549 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::addItemsIdColumn::admin ran successfully in 1ms
+15:18:12.555 [main] INFO  liquibase.changelog - NOT NULL constraint has been added to orders.user_id
+15:18:12.560 [main] INFO  liquibase.changelog - Foreign key constraint added to orders (items_id)
+15:18:12.562 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::addForeignKeys::admin ran successfully in 9ms
+15:18:12.567 [main] INFO  liquibase.util - UPDATE SUMMARY
+15:18:12.567 [main] INFO  liquibase.util - Run:                          4
+15:18:12.567 [main] INFO  liquibase.util - Previously run:               0
+15:18:12.567 [main] INFO  liquibase.util - Filtered out:                 0
+15:18:12.567 [main] INFO  liquibase.util - -------------------------------
+15:18:12.567 [main] INFO  liquibase.util - Total change sets:            4
+15:18:12.567 [main] INFO  liquibase.util - Update summary generated
+15:18:12.569 [main] INFO  liquibase.command - Update command completed successfully.
+15:18:12.571 [main] INFO  liquibase.lockservice - Successfully released change log lock
+15:18:12.571 [main] INFO  liquibase.command - Command execution complete
+15:18:12.656 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+15:18:12.724 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+15:18:12.764 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+15:18:13.029 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+15:18:13.898 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:18:13.901 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+15:18:14.361 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+15:18:14.874 [main] INFO  c.c.o.OrderManagementServiceApplicationTests - Started OrderManagementServiceApplicationTests in 5.095 seconds (process running for 6.262)
+15:18:15.768 [main] INFO  c.c.o.s.impl.OrderItemServiceImpl - Deleted order with id: 1
+15:18:15.793 [main] INFO  c.c.o.s.impl.OrderItemServiceImpl - Created new order with id: null
+15:18:15.798 [main] INFO  c.c.o.s.impl.OrderItemServiceImpl - Updated order with id: null
+15:18:15.806 [main] INFO  c.c.o.s.impl.OrderItemServiceImpl - Retrieved 2 orders from the database
+15:18:15.888 [main] INFO  c.c.o.service.impl.OrderServiceImpl - Deleted order with id: 1
+15:18:15.896 [main] INFO  c.c.o.service.impl.OrderServiceImpl - Created new order with id: null
+15:18:15.901 [main] INFO  c.c.o.service.impl.OrderServiceImpl - Updated order with id: null
+15:18:15.905 [main] INFO  c.c.o.service.impl.OrderServiceImpl - Retrieved 2 orders from the database
+15:18:15.951 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+15:18:15.954 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+15:18:15.959 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

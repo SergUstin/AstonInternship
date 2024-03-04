@@ -28,3 +28,10 @@ logging:
     file: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
   file:
     name: OrderManagementService/log/logging.log
+
+#Customer swagger
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /OrderManagementService/swagger-ui.html

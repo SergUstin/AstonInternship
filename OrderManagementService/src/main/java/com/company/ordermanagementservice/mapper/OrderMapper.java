@@ -12,9 +12,18 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Преобразует объекты заказа и его элементов между сущностями и DTO.
+ */
 @Component
 public class OrderMapper {
 
+    /**
+     * Преобразует объект заказа в его DTO представление.
+     *
+     * @param order Объект заказа, который требуется преобразовать.
+     * @return DTO-представление заказа.
+     */
     public OrderDTO toDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
@@ -25,6 +34,12 @@ public class OrderMapper {
         return dto;
     }
 
+    /**
+     * Преобразует объект DTO заказа в его сущностное представление.
+     *
+     * @param dto DTO-представление заказа, который требуется преобразовать.
+     * @return Сущностное представление заказа.
+     */
     public Order toEntity(OrderDTO dto) {
         Order order = new Order();
         order.setId(dto.getId());
@@ -35,6 +50,12 @@ public class OrderMapper {
         return order;
     }
 
+    /**
+     * Преобразует объект элемента заказа (OrderItem) в его сущностное представление.
+     *
+     * @param dto DTO-представление элемента заказа, который требуется преобразовать.
+     * @return Сущностное представление элемента заказа.
+     */
     public OrderItem toEntity(OrderItemDTO dto) {
         OrderItem item = new OrderItem();
         item.setId(dto.getId());
@@ -43,6 +64,12 @@ public class OrderMapper {
         return item;
     }
 
+    /**
+     * Преобразует объект сущности элемента заказа (OrderItem) в его DTO представление.
+     *
+     * @param item Сущностное представление элемента заказа, который требуется преобразовать.
+     * @return DTO-представление элемента заказа.
+     */
     public OrderItemDTO toDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
         dto.setId(item.getId());
