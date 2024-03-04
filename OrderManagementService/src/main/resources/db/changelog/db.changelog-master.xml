@@ -7,27 +7,43 @@
     <changeSet id="createOrderTable" author="admin">
         <createTable tableName="orders">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_order_id"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="BIGINT"/>
             <column name="payment_status" type="VARCHAR(255)"/>
             <column name="shipment_status" type="VARCHAR(255)"/>
             <column name="registration_date" type="TIMESTAMP"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="orders"
-                                 constraintName="FK_order_id" referencedColumnNames="order_id"
-                                 referencedTableName="order_items"/>
     </changeSet>
 
     <changeSet id="createOrderItemTable" author="admin">
         <createTable tableName="order_items">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_order_item_id"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="itemName" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="quantity" type="INT"/>
+            <column name="item_name" type="VARCHAR(255)"/>
+            <column name="quantity" type="INTEGER"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="addItemsIdColumn" author="admin">
+        <addColumn tableName="orders">
+            <column name="items_id" type="BIGINT" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="addForeignKeys" author="admin">
+        <addNotNullConstraint
+                tableName="orders"
+                columnName="user_id"
+                defaultNullValue="0"
+                columnDataType="BIGINT"/>
+
+        <addForeignKeyConstraint
+                baseTableName="orders"
+                baseColumnNames="items_id"
+                constraintName="order_items_fk"
+                referencedTableName="order_items"
+                referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

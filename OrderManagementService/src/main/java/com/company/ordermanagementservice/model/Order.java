@@ -14,26 +14,21 @@ import java.util.List;
 @Setter
 @Table(name = "orders")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
-
     @Column(name = "user_id")
     private BigInteger userId;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private List<OrderItem> items;
-
+    @ElementCollection
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "item_id")
+    private List<BigInteger> itemsId;
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "shipment_status")
     private ShipmentStatus shipmentStatus;
-
     @Column(name = "registration_date")
     @CreationTimestamp
     private LocalDateTime registrationDate;

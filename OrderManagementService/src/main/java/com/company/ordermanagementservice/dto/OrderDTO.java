@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderDTO {
     private BigInteger id;
     private BigInteger userId;
-    private List<OrderItemDTO> items;
+    private List<BigInteger> itemsId;
     private String paymentStatus;
     private String shipmentStatus;
 }

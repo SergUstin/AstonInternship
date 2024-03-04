@@ -8,6 +8,7 @@ import com.company.ordermanagementservice.model.ShipmentStatus;
 import com.company.ordermanagementservice.dto.OrderItemDTO;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +19,7 @@ public class OrderMapper {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
         dto.setUserId(order.getUserId());
-        // Маппинг элементов заказа
-        List<OrderItemDTO> itemDTOList = order.getItems().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-        dto.setItems(itemDTOList);
+        dto.setItemsId(order.getItemsId());
         dto.setPaymentStatus(order.getPaymentStatus().name());
         dto.setShipmentStatus(order.getShipmentStatus().name());
         return dto;
@@ -32,11 +29,7 @@ public class OrderMapper {
         Order order = new Order();
         order.setId(dto.getId());
         order.setUserId(dto.getUserId());
-        // Преобразование элементов заказа в сущности
-        List<OrderItem> itemList = dto.getItems().stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
-        order.setItems(itemList);
+        order.setItemsId(dto.getItemsId());
         order.setShipmentStatus(ShipmentStatus.valueOf(dto.getShipmentStatus()));
         order.setPaymentStatus(PaymentStatus.valueOf(dto.getPaymentStatus()));
         return order;
