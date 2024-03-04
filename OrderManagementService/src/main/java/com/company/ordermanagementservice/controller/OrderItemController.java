@@ -1,6 +1,5 @@
 package com.company.ordermanagementservice.controller;
 
-import com.company.ordermanagementservice.dto.OrderDTO;
 import com.company.ordermanagementservice.dto.OrderItemDTO;
 import com.company.ordermanagementservice.service.impl.OrderItemServiceImpl;
 import lombok.extern.slf4j.Slf4j;

@@ -8,9 +8,6 @@ import com.company.ordermanagementservice.model.ShipmentStatus;
 import com.company.ordermanagementservice.dto.OrderItemDTO;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Преобразует объекты заказа и его элементов между сущностями и DTO.

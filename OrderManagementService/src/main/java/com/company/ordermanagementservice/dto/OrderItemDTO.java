@@ -1,7 +1,6 @@
 package com.company.ordermanagementservice.dto;
 
 import lombok.Data;
-import org.apache.kafka.common.protocol.types.Field;
 
 import java.math.BigInteger;
 
