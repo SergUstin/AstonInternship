@@ -16,40 +16,34 @@ import java.util.Collection;
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderServiceImpl orderService;
-
     @Autowired
     public OrderController(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getById(@PathVariable BigInteger id) {
         log.info("GET /api/orders/{}", id);
         OrderDTO orderDTO = orderService.getById(id);
         return ResponseEntity.ok(orderDTO);
     }
-
     @GetMapping
     public ResponseEntity<Collection<OrderDTO>> getAll() {
         log.info("GET /api/orders");
         Collection<OrderDTO> orderDTOS = orderService.getAll();
         return ResponseEntity.ok(orderDTOS);
     }
-
     @PostMapping
     public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
         log.info("POST /api/orders: {}", orderDTO);
         orderService.create(orderDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDTO);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<OrderDTO> update(@PathVariable BigInteger id, @RequestBody OrderDTO orderDTO) {
         log.info("PUT /api/orders: {}", orderDTO);
         orderService.update(id, orderDTO);
         return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<OrderDTO> deleteById(@PathVariable BigInteger id) {
         log.info("DELETE /api/orders/{}", id);

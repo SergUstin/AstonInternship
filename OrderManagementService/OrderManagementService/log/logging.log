@@ -56,3 +56,319 @@
 15:18:15.951 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 15:18:15.954 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 15:18:15.959 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+16:22:01.437 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 113620 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+16:22:01.438 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+16:22:01.439 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+16:22:02.047 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:22:02.106 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 2 JPA repository interfaces.
+16:22:02.506 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+16:22:02.741 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@68dfda77
+16:22:02.742 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+16:22:02.887 [main] INFO  liquibase.database - Set default schema name to public
+16:22:03.021 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+16:22:03.027 [main] INFO  liquibase.command - Dropping Database Objects in schema: order_management.public
+16:22:03.173 [main] WARN  liquibase.executor - удаление распространяется на объект ограничение order_items_fk в отношении таблица orders
+16:22:03.274 [main] INFO  liquibase.database - Successfully deleted all supported object types in schema order_management.public.
+16:22:03.280 [main] WARN  liquibase.lockservice - Failed to release change log lock
+16:22:03.282 [main] INFO  liquibase.command - Command execution complete
+16:22:03.560 [main] INFO  liquibase.changelog - Creating database history table with name: public.databasechangelog
+16:22:03.596 [main] INFO  liquibase.changelog - Reading from public.databasechangelog
+16:22:03.722 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+16:22:03.723 [main] INFO  liquibase.command - Using deploymentId: 9558523723
+16:22:03.725 [main] INFO  liquibase.changelog - Reading from public.databasechangelog
+16:22:03.802 [main] INFO  liquibase.changelog - Table orders created
+16:22:03.803 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::createOrderTable::admin ran successfully in 61ms
+16:22:03.824 [main] INFO  liquibase.changelog - Table order_items created
+16:22:03.825 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::createOrderItemTable::admin ran successfully in 16ms
+16:22:03.829 [main] INFO  liquibase.changelog - Columns items_id(BIGINT) added to orders
+16:22:03.830 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::addItemsIdColumn::admin ran successfully in 2ms
+16:22:03.836 [main] INFO  liquibase.changelog - NOT NULL constraint has been added to orders.user_id
+16:22:03.840 [main] INFO  liquibase.changelog - Foreign key constraint added to orders (items_id)
+16:22:03.841 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-master.xml::addForeignKeys::admin ran successfully in 7ms
+16:22:03.846 [main] INFO  liquibase.util - UPDATE SUMMARY
+16:22:03.846 [main] INFO  liquibase.util - Run:                          4
+16:22:03.846 [main] INFO  liquibase.util - Previously run:               0
+16:22:03.846 [main] INFO  liquibase.util - Filtered out:                 0
+16:22:03.846 [main] INFO  liquibase.util - -------------------------------
+16:22:03.846 [main] INFO  liquibase.util - Total change sets:            4
+16:22:03.846 [main] INFO  liquibase.util - Update summary generated
+16:22:03.849 [main] INFO  liquibase.command - Update command completed successfully.
+16:22:03.851 [main] INFO  liquibase.lockservice - Successfully released change log lock
+16:22:03.851 [main] INFO  liquibase.command - Command execution complete
+16:22:03.919 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:22:03.989 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+16:22:04.025 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:22:04.288 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:22:05.086 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:22:05.088 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:22:05.546 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+16:22:06.030 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+16:22:06.030 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+16:22:06.031 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+16:22:06.059 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 4.946 seconds (process running for 5.886)
+16:22:06.785 [main] INFO  c.c.o.controller.OrderController - GET /api/orders/1
+16:22:06.867 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while creating a new order: Order not found with id: 1
+16:22:06.929 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:22:06.931 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+16:22:06.935 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+16:24:40.023 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 21808 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+16:24:40.024 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+16:24:40.025 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+16:24:41.037 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+16:24:41.038 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+16:24:41.039 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+16:24:41.077 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 1.394 seconds (process running for 3.03)
+16:24:41.198 [main] INFO  c.c.o.controller.OrderController - GET /api/orders/1
+16:31:21.236 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 117508 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+16:31:21.237 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+16:31:21.238 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+16:31:23.181 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+16:31:23.181 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+16:31:23.182 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+16:31:23.216 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.421 seconds (process running for 3.427)
+16:35:51.521 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 130132 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+16:35:51.522 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+16:35:51.523 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+16:35:53.502 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+16:35:53.503 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+16:35:53.504 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+16:35:53.553 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.469 seconds (process running for 3.474)
+16:36:02.096 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 118752 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+16:36:02.097 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+16:36:02.098 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+16:36:04.056 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+16:36:04.057 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+16:36:04.058 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+16:36:04.097 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.414 seconds (process running for 3.461)
+17:04:58.622 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 133204 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:04:58.622 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:04:58.623 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:05:00.388 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:05:00.388 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:05:00.389 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:05:00.420 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.17 seconds (process running for 3.072)
+17:11:15.322 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 129772 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:11:15.323 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:11:15.324 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:11:17.101 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:11:17.101 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:11:17.102 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:11:17.130 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.199 seconds (process running for 3.126)
+17:11:17.254 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while creating a new order: Required request body is missing: public org.springframework.http.ResponseEntity<com.company.ordermanagementservice.dto.OrderDTO> com.company.ordermanagementservice.controller.OrderController.create(com.company.ordermanagementservice.dto.OrderDTO)
+17:12:06.583 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 133320 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:12:06.584 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:12:06.584 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:12:08.322 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:12:08.322 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:12:08.323 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:12:08.355 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.169 seconds (process running for 3.068)
+17:12:08.485 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while creating a new order: Required request body is missing: public org.springframework.http.ResponseEntity<com.company.ordermanagementservice.dto.OrderDTO> com.company.ordermanagementservice.controller.OrderController.create(com.company.ordermanagementservice.dto.OrderDTO)
+17:16:15.662 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 129820 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:16:15.662 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:16:15.663 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:16:17.451 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:16:17.452 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:16:17.453 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:16:17.480 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.213 seconds (process running for 3.125)
+17:16:38.746 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 124376 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:16:38.747 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:16:38.748 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:16:40.460 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:16:40.460 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:16:40.461 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:16:40.492 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.136 seconds (process running for 3.038)
+17:16:56.494 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 88432 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:16:56.495 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:16:56.496 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:16:58.278 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:16:58.279 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:16:58.280 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:16:58.308 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.205 seconds (process running for 3.129)
+17:17:18.561 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 84392 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:17:18.561 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:17:18.562 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:17:20.402 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:17:20.402 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:17:20.403 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:17:20.434 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.274 seconds (process running for 3.192)
+17:17:28.132 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 21780 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:17:28.133 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:17:28.133 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:17:29.898 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:17:29.899 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:17:29.900 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:17:29.929 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.161 seconds (process running for 3.072)
+17:19:47.697 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 118432 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:19:47.698 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:19:47.699 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:19:49.415 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:19:49.415 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:19:49.416 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:19:49.446 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.136 seconds (process running for 3.027)
+17:19:55.022 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 8620 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:19:55.022 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:19:55.023 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:19:56.794 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:19:56.794 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:19:56.796 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:19:56.824 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.202 seconds (process running for 3.126)
+17:20:34.520 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 9844 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:20:34.521 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:20:34.522 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:20:36.301 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:20:36.301 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:20:36.302 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:20:36.331 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.19 seconds (process running for 3.131)
+17:20:46.515 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 23864 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:20:46.516 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:20:46.517 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:20:48.241 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:20:48.241 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:20:48.242 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:20:48.276 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.173 seconds (process running for 3.085)
+17:23:11.131 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 106788 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:23:11.132 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:23:11.133 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:23:12.908 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:23:12.908 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:23:12.909 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:23:12.940 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.181 seconds (process running for 3.056)
+17:23:13.058 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource 1.
+17:23:49.098 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 87432 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:23:49.099 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:23:49.099 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:23:50.840 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:23:50.840 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:23:50.841 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:23:50.877 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.181 seconds (process running for 3.084)
+17:23:50.987 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource 1.
+17:25:17.229 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 88452 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:25:17.230 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:25:17.231 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:25:19.014 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:25:19.014 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:25:19.015 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:25:19.045 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.199 seconds (process running for 3.109)
+17:25:55.466 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 87952 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:25:55.467 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:25:55.467 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:25:57.309 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:25:57.309 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:25:57.310 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:25:57.340 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.281 seconds (process running for 3.203)
+17:27:10.094 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 130688 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:27:10.095 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:27:10.096 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:27:11.808 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:27:11.808 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:27:11.809 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:27:11.839 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.138 seconds (process running for 3.045)
+17:27:46.159 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 26572 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:27:46.159 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:27:46.160 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:27:48.019 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:27:48.019 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:27:48.020 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:27:48.056 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.287 seconds (process running for 3.258)
+17:28:03.681 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 100340 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:28:03.682 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:28:03.682 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:28:05.550 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:28:05.551 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:28:05.552 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:28:05.587 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.324 seconds (process running for 3.266)
+17:29:56.855 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 92780 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:29:56.856 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:29:56.856 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:29:58.617 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:29:58.617 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:29:58.618 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:29:58.646 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.201 seconds (process running for 3.105)
+17:30:41.401 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 108784 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:30:41.402 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:30:41.403 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:30:43.217 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:30:43.217 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:30:43.218 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:30:43.247 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.236 seconds (process running for 3.151)
+17:30:55.042 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 120300 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:30:55.043 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:30:55.043 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:30:56.856 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:30:56.857 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:30:56.858 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:30:56.890 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.266 seconds (process running for 3.215)
+17:33:06.025 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 109460 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:33:06.025 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:33:06.026 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:33:07.814 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:33:07.814 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:33:07.816 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+17:33:07.845 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.199 seconds (process running for 3.084)
+17:34:17.406 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 28536 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:34:17.407 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:34:17.408 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:34:19.195 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:34:19.195 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:34:19.197 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:34:19.228 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.21 seconds (process running for 3.137)
+17:35:16.577 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 92744 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:35:16.578 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:35:16.578 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:35:18.383 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:35:18.384 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:35:18.385 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:35:18.416 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.239 seconds (process running for 3.118)
+17:37:34.236 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 119612 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:37:34.237 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:37:34.238 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:37:36.026 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:37:36.026 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:37:36.027 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:37:36.056 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.211 seconds (process running for 3.103)
+17:38:00.254 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 7820 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:38:00.255 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:38:00.256 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:38:02.021 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:38:02.022 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:38:02.023 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:38:02.052 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.181 seconds (process running for 3.172)
+17:38:20.103 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 86632 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:38:20.104 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:38:20.105 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:38:21.812 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:38:21.812 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:38:21.813 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:38:21.845 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.15 seconds (process running for 3.045)
+17:38:41.925 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 119744 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:38:41.926 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:38:41.926 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:38:43.679 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:38:43.679 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:38:43.680 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+17:38:43.709 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.167 seconds (process running for 3.038)
+17:38:55.603 [main] INFO  c.c.o.controller.OrderControllerTest - Starting OrderControllerTest using Java 17.0.9 with PID 22868 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:38:55.604 [main] DEBUG c.c.o.controller.OrderControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:38:55.604 [main] INFO  c.c.o.controller.OrderControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:38:57.394 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:38:57.394 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:38:57.395 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:38:57.431 [main] INFO  c.c.o.controller.OrderControllerTest - Started OrderControllerTest in 2.205 seconds (process running for 3.143)
+17:41:16.450 [main] INFO  c.c.o.c.OrderItemControllerTest - Starting OrderItemControllerTest using Java 17.0.9 with PID 87348 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:41:16.451 [main] DEBUG c.c.o.c.OrderItemControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:41:16.451 [main] INFO  c.c.o.c.OrderItemControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:41:18.224 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:41:18.225 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:41:18.226 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:41:18.255 [main] INFO  c.c.o.c.OrderItemControllerTest - Started OrderItemControllerTest in 2.166 seconds (process running for 3.037)
+17:41:18.362 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource api/orders/1.
+17:41:18.410 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource api/orders.
+17:41:18.435 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource api/orders.
+17:41:18.443 [main] ERROR c.c.o.config.OrderControllerAdvice - An error occurred while updating order: No static resource api/orders.
+17:41:51.253 [main] INFO  c.c.o.c.OrderItemControllerTest - Starting OrderItemControllerTest using Java 17.0.9 with PID 106032 (started by Serg in C:\Users\Serg\AtsonInternship\OrderManagementService)
+17:41:51.254 [main] DEBUG c.c.o.c.OrderItemControllerTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:41:51.255 [main] INFO  c.c.o.c.OrderItemControllerTest - No active profile set, falling back to 1 default profile: "default"
+17:41:53.004 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:41:53.005 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:41:53.006 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+17:41:53.036 [main] INFO  c.c.o.c.OrderItemControllerTest - Started OrderItemControllerTest in 2.147 seconds (process running for 3.056)
