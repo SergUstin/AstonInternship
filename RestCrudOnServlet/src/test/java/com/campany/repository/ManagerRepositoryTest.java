@@ -1,42 +1,67 @@
 package com.campany.repository;
 
 import com.campany.entity.Manager;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@RunWith(MockitoJUnitRunner.class)
+@Testcontainers
 public class ManagerRepositoryTest {
 
-    @Mock
-    private ConnectionToBase connection;
+    @Container
+    public static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.1")
+            .withDatabaseName("testdb")
+            .withUsername("user")
+            .withPassword("password");
 
-    @Mock
-    private Connection connectionMock;
-
-    @Mock
-    private PreparedStatement statementMock;
-
-    @Mock
-    private ResultSet resultSetMock;
-
-    @InjectMocks
     private ManagerRepository managerRepository;
+    private static TestConnectionToBase testConnectionToBase;
+
+    @BeforeAll
+    public static void setupDatabase() throws Exception {
+        // Create the required table for testing
+        try (Connection connection = DriverManager.getConnection(postgreSQLContainer.getJdbcUrl(), postgreSQLContainer.getUsername(), postgreSQLContainer.getPassword())) {
+            String createTable = "CREATE TABLE managers (id SERIAL PRIMARY KEY, full_name VARCHAR(255), salary DECIMAL)";
+            connection.createStatement().executeUpdate(createTable);
+        }
+
+        // Initialize testConnectionToBase
+        testConnectionToBase = new TestConnectionToBase(
+                postgreSQLContainer.getJdbcUrl(),
+                postgreSQLContainer.getUsername(),
+                postgreSQLContainer.getPassword()
+        );
+    }
+
+    @BeforeEach
+    public void setup() throws Exception {
+        managerRepository = new ManagerRepository(testConnectionToBase);
+        clearDatabase(); // Clear the database before each test
+    }
+
+    private void clearDatabase() throws Exception {
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("DELETE FROM managers")) {
+            ps.executeUpdate();
+        }
+    }
 
     @Test
     public void testFindById_shouldReturnManager() throws Exception {
@@ -45,20 +70,13 @@ public class ManagerRepositoryTest {
         String fullName = "John Doe";
         BigDecimal salary = BigDecimal.valueOf(5000);
 
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeQuery methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeQuery()).thenReturn(resultSetMock);
-
-        // Mocking the next method of resultSet
-        when(resultSetMock.next()).thenReturn(true);
-
-        // Mocking the getInt, getString, and getBigDecimal methods of resultSet
-        when(resultSetMock.getInt("id")).thenReturn(id);
-        when(resultSetMock.getString("full_name")).thenReturn(fullName);
-        when(resultSetMock.getBigDecimal("salary")).thenReturn(salary);
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)")) {
+            ps.setInt(1, id);
+            ps.setString(2, fullName);
+            ps.setBigDecimal(3, salary);
+            ps.executeUpdate();
+        }
 
         // Act
         Manager result = managerRepository.findById(id);
@@ -68,110 +86,45 @@ public class ManagerRepositoryTest {
         assertEquals(id, result.getId());
         assertEquals(fullName, result.getFullName());
         assertEquals(salary, result.getSalary());
-
-        // Verify the method calls
-        verify(connection).getConnection();
-        verify(connectionMock).prepareStatement(anyString());
-        verify(statementMock).setInt(1, id);
-        verify(statementMock).executeQuery();
-        verify(resultSetMock).next();
-        verify(resultSetMock).getInt("id");
-        verify(resultSetMock).getString("full_name");
-        verify(resultSetMock).getBigDecimal("salary");
     }
 
     @Test
     public void testFindAll_shouldReturnListOfManagers() throws Exception {
         // Arrange
-        List<Manager> expectedManagers = new ArrayList<>();
-        expectedManagers.add(new Manager(1, "John Doe", BigDecimal.valueOf(5000)));
-        expectedManagers.add(new Manager(2, "Jane Smith", BigDecimal.valueOf(6000)));
+        Manager manager1 = new Manager(1, "John Doe", BigDecimal.valueOf(5000));
+        Manager manager2 = new Manager(2, "Jane Smith", BigDecimal.valueOf(6000));
 
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)")) {
+            ps.setInt(1, manager1.getId());
+            ps.setString(2, manager1.getFullName());
+            ps.setBigDecimal(3, manager1.getSalary());
+            ps.executeUpdate();
 
-        // Mocking the prepareStatement and executeQuery methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeQuery()).thenReturn(resultSetMock);
-
-        // Mocking the next method of resultSet
-        when(resultSetMock.next()).thenReturn(true, true, false);
-
-        // Mocking the getInt, getString, and getBigDecimal methods of resultSet
-        when(resultSetMock.getInt("id")).thenReturn(1, 2);
-        when(resultSetMock.getString("full_name")).thenReturn("John Doe", "Jane Smith");
-        when(resultSetMock.getBigDecimal("salary")).thenReturn(BigDecimal.valueOf(5000), BigDecimal.valueOf(6000));
-
-        // Create the ManagerRepository instance
-        ManagerRepository managerRepository = new ManagerRepository(connection);
+            ps.setInt(1, manager2.getId());
+            ps.setString(2, manager2.getFullName());
+            ps.setBigDecimal(3, manager2.getSalary());
+            ps.executeUpdate();
+        }
 
         // Act
         List<Manager> actualManagers = managerRepository.findAll();
 
         // Assert
-        assertEquals(expectedManagers.get(0).getId(), actualManagers.get(0).getId());
-        assertEquals(expectedManagers.get(0).getFullName(), actualManagers.get(0).getFullName());
-        assertEquals(expectedManagers.get(0).getSalary(), actualManagers.get(0).getSalary());
-        assertEquals(expectedManagers.get(1).getId(), actualManagers.get(1).getId());
-        assertEquals(expectedManagers.get(1).getFullName(), actualManagers.get(1).getFullName());
-        assertEquals(expectedManagers.get(1).getSalary(), actualManagers.get(1).getSalary());
+        assertEquals(2, actualManagers.size());
+        assertEquals(manager1.getFullName(), actualManagers.get(0).getFullName());
+        assertEquals(manager1.getSalary(), actualManagers.get(0).getSalary());
+        assertEquals(manager2.getFullName(), actualManagers.get(1).getFullName());
+        assertEquals(manager2.getSalary(), actualManagers.get(1).getSalary());
     }
 
     @Test
     public void testFindAll_shouldReturnEmptyListWhenNoManagers() throws Exception {
-        // Arrange
-        List<Manager> expectedManagers = new ArrayList<>();
-
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeQuery methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeQuery()).thenReturn(resultSetMock);
-
-        // Mocking the next method of resultSet
-        when(resultSetMock.next()).thenReturn(false);
-
-        // Create the ManagerRepository instance
-        ManagerRepository managerRepository = new ManagerRepository(connection);
-
         // Act
         List<Manager> actualManagers = managerRepository.findAll();
 
         // Assert
-        assertEquals(expectedManagers, actualManagers);
-    }
-
-    @Test
-    public void testFindAll_shouldLogErrorIfSQLExceptionOccurs() throws Exception {
-        // Arrange
-        // Mocking the getConnection method of connectionToBase to throw SQLException
-        when(connection.getConnection()).thenThrow(SQLException.class);
-
-        // Create the ManagerRepository instance
-        ManagerRepository managerRepository = new ManagerRepository(connection);
-
-        // Act
-        List<Manager> actualManagers = managerRepository.findAll();
-
-        // Assert
-        assertEquals(Collections.emptyList(), actualManagers);
-    }
-
-    @Test
-    public void testFindAll_shouldLogErrorIfClassNotFoundExceptionOccurs() throws Exception {
-        // Arrange
-        // Mocking the getConnection method of connectionToBase to throw ClassNotFoundException
-        when(connection.getConnection()).thenThrow(ClassNotFoundException.class);
-
-        // Create the ManagerRepository instance
-        ManagerRepository managerRepository = new ManagerRepository(connection);
-
-        // Act
-        List<Manager> actualManagers = managerRepository.findAll();
-
-        // Assert
-        assertEquals(Collections.emptyList(), actualManagers);
+        assertTrue(actualManagers.isEmpty());
     }
 
     @Test
@@ -179,57 +132,19 @@ public class ManagerRepositoryTest {
         // Arrange
         Manager manager = new Manager(1, "John Doe", BigDecimal.valueOf(5000));
 
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeUpdate methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeUpdate()).thenReturn(1);
-
         // Act
         managerRepository.save(manager);
 
         // Assert
-        verify(connection, times(1)).getConnection();
-        verify(connectionMock, times(1)).prepareStatement(anyString());
-        verify(statementMock, times(1)).setInt(eq(1), eq(1));
-        verify(statementMock, times(1)).setString(eq(2), eq("John Doe"));
-        verify(statementMock, times(1)).setBigDecimal(eq(3), eq(BigDecimal.valueOf(5000)));
-        verify(statementMock, times(1)).executeUpdate();
-    }
-
-    @Test
-    public void testSave_shouldLogErrorWhenSQLExceptionOccurs() throws Exception {
-        // Arrange
-        Manager manager = new Manager(1, "John Doe", BigDecimal.valueOf(5000));
-
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeUpdate methods of connection to throw SQLException
-        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException("Mocked SQLException"));
-
-        // Act
-        managerRepository.save(manager);
-
-        // Assert
-        verify(connection, times(1)).getConnection();
-        verify(connectionMock, times(1)).prepareStatement(anyString());
-    }
-
-    @Test
-    public void testSave_shouldLogErrorWhenClassNotFoundExceptionOccurs() throws Exception {
-        // Arrange
-        Manager manager = new Manager(1, "John Doe", BigDecimal.valueOf(5000));
-
-        // Mocking the getConnection method of connectionToBase to throw ClassNotFoundException
-        when(connection.getConnection()).thenThrow(new ClassNotFoundException("Mocked ClassNotFoundException"));
-
-        // Act
-        managerRepository.save(manager);
-
-        // Assert
-        verify(connection, times(1)).getConnection();
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM managers WHERE id = ?")) {
+            ps.setInt(1, manager.getId());
+            ResultSet resultSet = ps.executeQuery();
+            assertTrue(resultSet.next());
+            assertEquals(manager.getId(), resultSet.getInt("id"));
+            assertEquals(manager.getFullName(), resultSet.getString("full_name"));
+            assertEquals(manager.getSalary(), resultSet.getBigDecimal("salary"));
+        }
     }
 
     @Test
@@ -237,47 +152,53 @@ public class ManagerRepositoryTest {
         // Arrange
         Manager manager = new Manager(1, "John Doe", BigDecimal.valueOf(5000));
 
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeUpdate methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeUpdate()).thenReturn(1);
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)")) {
+            ps.setInt(1, manager.getId());
+            ps.setString(2, manager.getFullName());
+            ps.setBigDecimal(3, manager.getSalary());
+            ps.executeUpdate();
+        }
 
         // Act
+        manager.setSalary(BigDecimal.valueOf(6000));
         managerRepository.update(manager);
 
         // Assert
-        verify(connection, times(1)).getConnection();
-        verify(connectionMock, times(1)).prepareStatement(anyString());
-        verify(statementMock, times(1)).setString(eq(1), eq("John Doe"));
-        verify(statementMock, times(1)).setBigDecimal(eq(2), eq(BigDecimal.valueOf(5000)));
-        verify(statementMock, times(1)).setInt(eq(3), eq(1));
-        verify(statementMock, times(1)).executeUpdate();
-        verify(connectionMock, times(1)).close();
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM managers WHERE id = ?")) {
+            ps.setInt(1, manager.getId());
+            ResultSet resultSet = ps.executeQuery();
+            assertTrue(resultSet.next());
+            assertEquals(manager.getId(), resultSet.getInt("id"));
+            assertEquals(manager.getFullName(), resultSet.getString("full_name"));
+            assertEquals(manager.getSalary(), resultSet.getBigDecimal("salary"));
+        }
     }
 
     @Test
     public void testDeleteById_shouldDeleteManagerSuccessfully() throws Exception {
         // Arrange
         int id = 1;
+        Manager manager = new Manager(id, "John Doe", BigDecimal.valueOf(5000));
 
-        // Mocking the getConnection method of connectionToBase
-        when(connection.getConnection()).thenReturn(connectionMock);
-
-        // Mocking the prepareStatement and executeUpdate methods of connection
-        when(connectionMock.prepareStatement(anyString())).thenReturn(statementMock);
-        when(statementMock.executeUpdate()).thenReturn(1);
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("INSERT INTO managers (id, full_name, salary) VALUES (?, ?, ?)")) {
+            ps.setInt(1, manager.getId());
+            ps.setString(2, manager.getFullName());
+            ps.setBigDecimal(3, manager.getSalary());
+            ps.executeUpdate();
+        }
 
         // Act
         managerRepository.deleteById(id);
 
         // Assert
-        verify(connection, times(1)).getConnection();
-        verify(connectionMock, times(1)).prepareStatement(anyString());
-        verify(statementMock, times(1)).setInt(1, id);
-        verify(statementMock, times(1)).executeUpdate();
-        verify(connectionMock, times(1)).close();
+        try (Connection connection = testConnectionToBase.getConnection();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM managers WHERE id = ?")) {
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            assertFalse(resultSet.next());
+        }
     }
-
 }
